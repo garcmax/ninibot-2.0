@@ -15,10 +15,3 @@ bot.on('ready', () => {
 
 //login
 signIn.login(bot);
-
-// create an event listener for messages
-bot.on('message', message => {
-  if (message.content === '!deco') {
-    signIn.logout(bot);
-  }
-});
