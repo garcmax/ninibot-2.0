@@ -29,7 +29,8 @@
     "jshint": "^2.9.3",
     "mocha": "^3.0.2",
     "should": "^11.1.0",
-    "sinon": "^1.17.5"
+    "sinon": "^1.17.5",
+    "sinon-as-promised": "^4.0.2"
   },
   "jshintConfig": {
     "node": true,

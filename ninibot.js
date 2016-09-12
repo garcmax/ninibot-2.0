@@ -1,5 +1,7 @@
 'use strict';
+
 import * as signIn from "./src/login/login.js";
+import commandDispatcher from "./src/commands/commandDispatcher.js";
 
 // import the discord.js module
 const Discord = require('discord.js');
@@ -15,3 +17,8 @@ bot.on('ready', () => {
 
 //login
 signIn.login(bot);
+
+bot.on('message', message => {
+    commandDispatcher(message);
+});
+
