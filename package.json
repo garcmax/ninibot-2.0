@@ -4,8 +4,8 @@
   "description": "A multi-purpose discord bot",
   "main": "ninibot.js",
   "scripts": {
-    "pretest": "jshint ninibot.js src/",
-    "test": "mocha -w"
+    "jshint": "jshint ninibot.js src/",    
+    "test": "jshint && mocha -w"
   },
   "repository": {
     "type": "git",
