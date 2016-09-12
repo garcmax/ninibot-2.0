@@ -1,0 +1,38 @@
+{
+  "name": "ninibot-2.0",
+  "version": "0.0.2",
+  "description": "A multi-purpose discord bot",
+  "main": "ninibot.js",
+  "scripts": {
+    "pretest": "jshint ninibot.js src/",
+    "test": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niwamaxou/ninibot-2.0.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "niwamaxou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niwamaxou/ninibot-2.0/issues"
+  },
+  "homepage": "https://github.com/niwamaxou/ninibot-2.0#readme",
+  "devDependencies": {
+    "jshint": "^2.9.3",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "sinon": "^1.17.5"
+  },
+  "jshintConfig": {
+    "node": true,
+    "esversion": 6,
+    "validthis": true
+  },
+  "dependencies": {
+    "discord.js": "^9.1.1"
+  }
+}
