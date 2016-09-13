@@ -22,3 +22,7 @@ bot.on('message', message => {
     commandDispatcher(message);
 });
 
+bot.on('error', error => {
+    console.log(error);
+});
+

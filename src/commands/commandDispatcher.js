@@ -12,7 +12,7 @@ function commandDispatcher(message) {
     let command = extractCommand(message);
 
     if (command === '!ping') {
-       ping.ping(message);
+       ping.pong(message);
     }
 }
 
