@@ -1,0 +1,8 @@
+{
+    "en" : {
+        "ping" : "Pong ! I'm ninibot."
+    },
+    "fr" : {
+        "ping" : "Pong ! Je m'appelle ninibot."
+    }
+}

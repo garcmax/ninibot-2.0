@@ -1,11 +1,11 @@
 'use strict';
 
-export function reply(reply, message) {
-     message.channel.sendMessage(reply)
+export function reply(replyContent, message) {
+     message.channel.sendMessage(replyContent)
     .then(message => console.log(`Sent message: ${message.content}`))
     .catch(console.log);
 }
 
-export function replyWithAuthor(reply, message) {
-     reply(`${message.author} ${reply}`);    
+export function replyWithAuthor(replyContent, message) {
+     reply(`${message.author} ${replyContent}`, message);    
 }

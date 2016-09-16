@@ -1,7 +1,12 @@
 'use strict';
 
+const request = require('request'); 
 import * as bot from "../bot/reply.js"
+import * as config from "../config/config.js"
 
+/**
+ * Will extract the desired options from the query and buit it
+ */
 export function buildImgurQuery(opts) {
   let sort = "";
   let window = "";
@@ -24,16 +29,54 @@ export function buildImgurQuery(opts) {
     query = query + encodeUrl(opts[optIndex]) + " ";
     optIndex++;
   }
+  query = query.trim();
   return sort + window + query;
 }
 
+/**
+	* Manage the imgur API response
+ */
+export function imgurCallback(error, response, message) {
+    if (error) {
+      //console.log(error);
+      bot.replyWithAuthor("imgur search error", message);
+    } else {
+      let res = JSON.parse(response.body); 
+      let data = res.data ? res.data[0] : undefined;
+      if(response.statusCode === 200 && data) {							
+        bot.replyWithAuthor(data.link, message);          
+      } else if (response.statusCode === 200 && !data) {          
+        bot.replyWithAuthor("nothing found", message);
+      } else {          
+        bot.replyWithAuthor("API problem", message);
+      }
+    }
+}
+
+
+/**
+ * Ask imgur for the desired image
+ */
 export function imgur(message) {
     let query = buildImgurQuery(message.content.split(/\s/));
     if (query == -1) {
       bot.reply("help");
-    }
+    } else {
+      let options = {
+      url: config.url.imgur + query,
+      headers: {
+        'Authorization' : config.credentials.imgurId
+      }
+    };
+    request.get(options, function(error, response) {
+      imgurCallback(error, response, message);
+				});
+  }
 }
 
+/**
+ * Encode the url for imgur query
+ */
 export function encodeUrl(str) {
     return encodeURIComponent(str).replace(/%20/gi, '+');
 }

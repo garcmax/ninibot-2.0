@@ -1,11 +1,11 @@
 'use strict';
-import credentials from "../config/credentials.js";
+import * as config from "../config/config.js";
 
 /**
  * login with the discord token
  */
 export function login(bot) {
-    bot.login(credentials.discordToken).then(message => {
+    bot.login(config.credentials.discordToken).then(message => {
         console.log(message);
     });
 }
