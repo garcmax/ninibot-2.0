@@ -2,6 +2,7 @@
 
 import * as ping from "./ping.js";
 import * as mm from "./multimedia.js";
+import * as lang from "./lang.js";
 
 /**
  * Extract the desired command from the message
@@ -18,9 +19,11 @@ function commandDispatcher(message) {
     let command = extractCommand(message);
 
     if (command === '!ping') {
-       ping.pong(message);
+        ping.pong(message);
     } else if (command === '!imgur') {
-       mm.imgur(message);
+        mm.imgur(message);
+    } else if (command === '!lang') {
+        lang.change(message);
     }
 }
 

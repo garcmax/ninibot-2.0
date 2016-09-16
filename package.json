@@ -5,7 +5,7 @@
   "main": "ninibot.js",
   "scripts": {
     "dev": "babel-node ninibot.js",
-    "jshint": "jshint ninibot.js src/",
+    "jshint": "jshint ninibot.js src/**",
     "test": "jshint && mocha -w --compilers js:babel-register"
   },
   "repository": {

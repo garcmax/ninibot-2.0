@@ -2,10 +2,10 @@
 
 import * as bot from "../bot/reply.js"
 import * as config from "../config/config.js"
-var lang = new config.Language();
+const lang = new config.Language();
 
 
 export function pong(message) {
-     bot.reply(config.strings[lang.countryCode].ping, message);
+     bot.reply(`${config.strings[lang.countryCode].ping}${config.credentials.ninibotVersion}.`, message);
 }
 

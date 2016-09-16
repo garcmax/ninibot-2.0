@@ -1,8 +1,22 @@
 {
     "en" : {
-        "ping" : "Pong ! I'm ninibot."
+        "ping" : "Pong ! I'm currently speaking english and in v",
+        "langOK": "I'm speaking english ! God save the queen or are we the country of the brave ?",
+        "langKO" : "I'm not ready to talk this language yet.",
+        "langAlreadySet": "I'm already speaking english !",
+        "internetKO": "It seems that something's wrong with internet.",
+        "imgurSearchKO": "Imgur doesn't have any image from your query.",
+        "imgurAPIKO": "Something went wrong with imgurAPI. Blame Niwa.",
+        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <query>"
     },
     "fr" : {
-        "ping" : "Pong ! Je m'appelle ninibot."
+        "ping" : "Pong ! Je m'exprime en français et suis en v",
+        "langOK": "Je parle français ! Je pense en français donc je suis français.",
+        "langKO" : "Je ne connais pas encore cette langue.",
+        "langAlreadySet": "Je m'exprime déjà en français !",
+        "internetKO": "Il semble qu'il y ait un problème avec internet.",
+        "imgurSearchKO": "Imgur n'a pas d'image correspondant à ta recherche",
+        "imgurAPIKO": "Quelquechose s'est mal passé avec l'API imgur. Blame Niwa.",
+        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <recherche>"
     }
 }

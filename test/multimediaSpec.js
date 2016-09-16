@@ -5,7 +5,8 @@ const request = require('request');
 
 import * as mm from "../src/commands/multimedia.js";
 import * as bot from "../src/bot/reply.js";
-import * as config from "../src/config/config.js"
+import * as config from "../src/config/config.js";
+const lang = new config.Language();
 
 describe('encoding url', function() {
   it('should encode accentuated characters', function (done) {
@@ -61,7 +62,7 @@ describe ('imgur search', function () {
         content: "!imgur -help"
     }
     mm.imgur(message);
-    bot.reply.calledWith("help").should.be.equal(true);
+    bot.reply.calledWith(config.strings[lang.countryCode].imgurHelp, message).should.be.equal(true);
     done();
   });
   it('should get an image', function (done) {
@@ -112,7 +113,7 @@ describe('treat imgur response', function () {
     it ('should reply that something went wrong with the API call', function () {
         mm.imgurCallback("error", response, "message");
         bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith("imgur search error", "message").should.be.equal(true);
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].internetKO, "message").should.be.equal(true);
     });
     it ('should reply with the received image', function () {    
         mm.imgurCallback(undefined, response, "message");
@@ -124,12 +125,12 @@ describe('treat imgur response', function () {
         response.body =  JSON.stringify(bodyTmp);   
         mm.imgurCallback(undefined, response, "message");
         bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith("nothing found", "message").should.be.equal(true);
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurSearchKO, "message").should.be.equal(true);
     });
     it ('should reply with the bad status error message', function () {        
         response.statusCode = 401;  
         mm.imgurCallback(undefined, response, "message");
         bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith("API problem", "message").should.be.equal(true);
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurAPIKO, "message").should.be.equal(true);
     });
 });

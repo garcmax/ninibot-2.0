@@ -1,8 +1,9 @@
 'use strict';
 
 const request = require('request'); 
-import * as bot from "../bot/reply.js"
-import * as config from "../config/config.js"
+import * as bot from "../bot/reply.js";
+import * as config from "../config/config.js";
+const lang = new config.Language();
 
 /**
  * Will extract the desired options from the query and buit it
@@ -38,17 +39,16 @@ export function buildImgurQuery(opts) {
  */
 export function imgurCallback(error, response, message) {
     if (error) {
-      //console.log(error);
-      bot.replyWithAuthor("imgur search error", message);
+      bot.replyWithAuthor(config.strings[lang.countryCode].internetKO, message);
     } else {
       let res = JSON.parse(response.body); 
       let data = res.data ? res.data[0] : undefined;
       if(response.statusCode === 200 && data) {							
         bot.replyWithAuthor(data.link, message);          
       } else if (response.statusCode === 200 && !data) {          
-        bot.replyWithAuthor("nothing found", message);
+        bot.replyWithAuthor(config.strings[lang.countryCode].imgurSearchKO, message);
       } else {          
-        bot.replyWithAuthor("API problem", message);
+        bot.replyWithAuthor(config.strings[lang.countryCode].imgurAPIKO, message);
       }
     }
 }
@@ -60,7 +60,7 @@ export function imgurCallback(error, response, message) {
 export function imgur(message) {
     let query = buildImgurQuery(message.content.split(/\s/));
     if (query == -1) {
-      bot.reply("help");
+      bot.reply(config.strings[lang.countryCode].imgurHelp, message);
     } else {
       let options = {
       url: config.url.imgur + query,
@@ -69,8 +69,8 @@ export function imgur(message) {
       }
     };
     request.get(options, function(error, response) {
-      imgurCallback(error, response, message);
-				});
+        imgurCallback(error, response, message);
+    });
   }
 }
 
