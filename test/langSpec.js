@@ -9,10 +9,10 @@ const l = new config.Language();
 
 describe ('Language manager', function () {
     beforeEach(function () {
-        sinon.stub(bot, "reply");        
+        sinon.stub(bot, "replyInChannel");        
     });
     afterEach(function () {
-        bot.reply.restore();
+        bot.replyInChannel.restore();
         l.countryCode = 'en';
     });
     it('should change the language with the expected one', function (done) {
@@ -21,8 +21,8 @@ describe ('Language manager', function () {
         }
         l.countryCode.should.be.equal('en');
         lang.change(message);
-        bot.reply.calledOnce.should.be.equal(true);
-        bot.reply.calledWith(config.strings['fr'].langOK, message).should.be.equal(true);
+        bot.replyInChannel.calledOnce.should.be.equal(true);
+        bot.replyInChannel.calledWith(config.strings['fr'].langOK, message).should.be.equal(true);
         l.countryCode.should.be.equal('fr');
         done();
     });
@@ -32,8 +32,8 @@ describe ('Language manager', function () {
         }
         l.countryCode.should.be.equal('en');
         lang.change(message);
-        bot.reply.calledOnce.should.be.equal(true);
-        bot.reply.calledWith(config.strings['en'].langAlreadySet, message).should.be.equal(true);
+        bot.replyInChannel.calledOnce.should.be.equal(true);
+        bot.replyInChannel.calledWith(config.strings['en'].langAlreadySet, message).should.be.equal(true);
         l.countryCode.should.be.equal('en');
         done();
     });
@@ -43,8 +43,8 @@ describe ('Language manager', function () {
         }
         l.countryCode.should.be.equal('en');
         lang.change(message);
-        bot.reply.calledOnce.should.be.equal(true);
-        bot.reply.calledWith(config.strings['en'].langKO, message).should.be.equal(true);
+        bot.replyInChannel.calledOnce.should.be.equal(true);
+        bot.replyInChannel.calledWith(config.strings['en'].langKO, message).should.be.equal(true);
         l.countryCode.should.be.equal('en');
         done();
     });

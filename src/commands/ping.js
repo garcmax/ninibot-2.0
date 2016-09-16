@@ -6,6 +6,6 @@ const lang = new config.Language();
 
 
 export function pong(message) {
-     bot.reply(`${config.strings[lang.countryCode].ping}${config.credentials.ninibotVersion}.`, message);
+     bot.replyInChannel(`${config.strings[lang.countryCode].ping}${config.credentials.ninibotVersion}.`, message);
 }
 

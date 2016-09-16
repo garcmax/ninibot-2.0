@@ -9,36 +9,43 @@ import commandDispatcher from "../src/commands/commandDispatcher.js";
 
 
 describe ('commands call', function () {
-  after(function() {
+  var message;
+  before(function() {
+    message = {
+      content: "!ping",
+      author: "the bot"
+    };
+  });
+  beforeEach(function() {
+    sinon.stub(ping, "pong");
+    sinon.stub(mm, "imgur");
+    sinon.stub(lang, "change");
+  });
+  afterEach(function() {
     ping.pong.restore();
     mm.imgur.restore();
     lang.change.restore();
   });
+   it('should not execute command from self', function (done) {
+    commandDispatcher(message, "the bot");
+    ping.pong.called.should.equal(false);
+    done();
+  });
   it('should execute ping command', function (done) {
-    let stub = sinon.stub(ping, "pong");
-    let message = {
-      content: "!ping"
-    };
-    commandDispatcher(message);
-    stub.calledOnce.should.equal(true);
+    commandDispatcher(message, undefined);
+    ping.pong.calledOnce.should.equal(true);
     done();
   });
   it('should execute imgur command', function (done) {
-    let stub = sinon.stub(mm, "imgur");
-    let message = {
-      content: "!imgur"
-    };
-    commandDispatcher(message);
-    stub.calledOnce.should.equal(true);
+    message.content ="!imgur";
+    commandDispatcher(message, undefined);
+    mm.imgur.calledOnce.should.equal(true);
     done();
   });
   it('should execute language command', function (done) {
-    let stub = sinon.stub(lang, "change");
-    let message = {
-      content: "!lang fr"
-    };
-    commandDispatcher(message);
-    stub.calledOnce.should.equal(true);
+    message.content ="!lang";
+    commandDispatcher(message, undefined);
+    lang.change.calledOnce.should.equal(true);
     done();
   });
 });

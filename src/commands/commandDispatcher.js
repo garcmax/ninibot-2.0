@@ -15,15 +15,16 @@ export function extractCommand(message) {
 /**
  * Route ninibot to execute given command
  */
-function commandDispatcher(message) {
-    let command = extractCommand(message);
-
-    if (command === '!ping') {
-        ping.pong(message);
-    } else if (command === '!imgur') {
-        mm.imgur(message);
-    } else if (command === '!lang') {
-        lang.change(message);
+function commandDispatcher(message, self) {
+    if (message.author != self) {
+        let command = extractCommand(message);
+        if (command === '!ping') {
+            ping.pong(message);
+        } else if (command === '!imgur') {
+            mm.imgur(message);
+        } else if (command === '!lang') {
+            lang.change(message);
+        }
     }
 }
 

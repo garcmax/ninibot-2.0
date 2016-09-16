@@ -50,19 +50,19 @@ describe ('build imgur query', function () {
 
 describe ('imgur search', function () {
   beforeEach(function() {
-    sinon.stub(bot, 'reply');
+    sinon.stub(bot, 'replyInPM');
     sinon.stub(request, 'get');
   });
   afterEach(function() {
       request.get.restore();
-      bot.reply.restore();
+      bot.replyInPM.restore();
   });
   it('should trigger imgur helper', function (done) {    
     let message = {
         content: "!imgur -help"
     }
     mm.imgur(message);
-    bot.reply.calledWith(config.strings[lang.countryCode].imgurHelp, message).should.be.equal(true);
+    bot.replyInPM.calledWith(config.strings[lang.countryCode].imgurHelp, message).should.be.equal(true);
     done();
   });
   it('should get an image', function (done) {

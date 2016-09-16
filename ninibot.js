@@ -19,7 +19,7 @@ bot.on('ready', () => {
 signIn.login(bot);
 
 bot.on('message', message => {
-    commandDispatcher(message);
+    commandDispatcher(message, bot.user);
 });
 
 bot.on('error', error => {

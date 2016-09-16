@@ -60,7 +60,7 @@ export function imgurCallback(error, response, message) {
 export function imgur(message) {
     let query = buildImgurQuery(message.content.split(/\s/));
     if (query == -1) {
-      bot.reply(config.strings[lang.countryCode].imgurHelp, message);
+      bot.replyInPM(config.strings[lang.countryCode].imgurHelp, message);
     } else {
       let options = {
       url: config.url.imgur + query,
