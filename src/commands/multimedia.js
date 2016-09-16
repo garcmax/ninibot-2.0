@@ -1,8 +1,10 @@
 'use strict';
 
-export function buildQuery(opts) {
+import * as bot from "../bot/reply.js"
+
+export function buildImgurQuery(opts) {
   let sort = "";
-  let windw = "";
+  let window = "";
   let query = "/?q=";
   let optIndex = 1;
   if (opts[optIndex] && opts[optIndex].charAt(0) === "-") {
@@ -14,7 +16,7 @@ export function buildQuery(opts) {
     optIndex++;
     if (opts[optIndex] && opts[optIndex].charAt(0) === "-") {
       let opt2 = opts[optIndex].substr(1);
-      windw = "/" + opt2;
+      window = "/" + opt2;
       optIndex++;
     }
   }
@@ -22,11 +24,14 @@ export function buildQuery(opts) {
     query = query + encodeUrl(opts[optIndex]) + " ";
     optIndex++;
   }
-  return sort + windw + query;
+  return sort + window + query;
 }
 
 export function imgur(message) {
-
+    let query = buildImgurQuery(message.content.split(/\s/));
+    if (query == -1) {
+      bot.reply("help");
+    }
 }
 
 export function encodeUrl(str) {

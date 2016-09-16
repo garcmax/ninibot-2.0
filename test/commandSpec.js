@@ -8,6 +8,10 @@ import commandDispatcher from "../src/commands/commandDispatcher.js";
 
 
 describe ('commands call', function () {
+  after(function() {
+    ping.pong.restore();
+    mm.imgur.restore();
+  })
   it('should execute ping command', function (done) {
     let stub = sinon.stub(ping, "pong");
     let message = {
