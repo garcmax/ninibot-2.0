@@ -9,7 +9,9 @@ export const credentials = {
 };
 
 export const url = {
-  "imgur" : "https://api.imgur.com/3/gallery/search"
+  "imgurAPI" : "https://api.imgur.com/3/gallery/search",
+  "youtubeAPI": "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=relevance&type=video&q=",
+  "youtubeVideo" :"http://www.youtube.com/watch?v="
 }
 
 export var strings;

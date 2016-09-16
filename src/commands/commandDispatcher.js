@@ -24,6 +24,8 @@ function commandDispatcher(message, self) {
             mm.imgur(message);
         } else if (command === '!lang') {
             lang.change(message);
+        } else if (command === '!yt') {
+            mm.youtube(message);
         }
     }
 }

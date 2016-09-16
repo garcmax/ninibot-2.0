@@ -19,11 +19,13 @@ describe ('commands call', function () {
   beforeEach(function() {
     sinon.stub(ping, "pong");
     sinon.stub(mm, "imgur");
+    sinon.stub(mm, "youtube");
     sinon.stub(lang, "change");
   });
   afterEach(function() {
     ping.pong.restore();
     mm.imgur.restore();
+    mm.youtube.restore();
     lang.change.restore();
   });
    it('should not execute command from self', function (done) {
@@ -46,6 +48,12 @@ describe ('commands call', function () {
     message.content ="!lang";
     commandDispatcher(message, undefined);
     lang.change.calledOnce.should.equal(true);
+    done();
+  });
+   it('should execute youtube command', function (done) {
+    message.content ="!yt";
+    commandDispatcher(message, undefined);
+    mm.youtube.calledOnce.should.equal(true);
     done();
   });
 });

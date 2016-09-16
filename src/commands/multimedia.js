@@ -75,7 +75,33 @@ export function imgur(message) {
 }
 
 /**
- * Encode the url for imgur query
+	* Manage the youtube API response
+ */
+export function ytCallback(error, response, message) {
+    if (error) {
+      bot.replyWithAuthor(config.strings[lang.countryCode].internetKO, message);
+    } else {
+      let res = JSON.parse(response.body); 
+      let data = res.items ? res.items[0] : undefined;
+      if(response.statusCode === 200 && data) {		
+        bot.replyWithAuthor(`${config.url.youtubeVideo}${data.id.videoId}`, message);
+      } else if (response.statusCode === 200 && !data) {          
+        bot.replyWithAuthor(config.strings[lang.countryCode].ytSearchKO, message);
+      } else {          
+        bot.replyWithAuthor(config.strings[lang.countryCode].ytAPIKO, message);
+      }
+    }
+}
+
+/**
+ * Ask youtub for the desired video
+ */
+export function youtube(message) {
+
+}
+
+/**
+ * Encode query for API queries
  */
 export function encodeUrl(str) {
     return encodeURIComponent(str).replace(/%20/gi, '+');
