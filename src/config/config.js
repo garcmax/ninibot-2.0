@@ -16,11 +16,6 @@ export const url = {
 
 export var strings;
 
-fs.readFile('./src/static/strings.json', 'utf8', function (err, data) {
-    if (err) throw err;
-    strings = JSON.parse(data);
-});
-
 let instance = null;
 
 export class Language {
@@ -31,4 +26,10 @@ export class Language {
     this.countryCode = "en";
     return instance;
   }
+}
+
+export function loadFiles() {
+  let str = fs.readFileSync('./src/static/strings.json', 'utf8');
+  strings = JSON.parse(str); 
+  console.log('strings is loaded');
 }
