@@ -97,7 +97,13 @@ export function ytCallback(error, response, message) {
  * Ask youtub for the desired video
  */
 export function youtube(message) {
-
+  let query = encodeUrl(message.content.substr(4));
+  let options = {
+    url: "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=relevance&type=video&q=" + query + "&key=" + config.credentials.googleToken,
+  };
+   request.get(options, function(error, response) {
+        ytCallback(error, response, message);
+    });
 }
 
 /**

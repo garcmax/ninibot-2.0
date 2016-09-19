@@ -21,7 +21,6 @@ fs.readFile('./src/static/strings.json', 'utf8', function (err, data) {
     strings = JSON.parse(data);
 });
 
-
 let instance = null;
 
 export class Language {

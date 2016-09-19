@@ -2,6 +2,7 @@
 
 import * as signIn from "./src/login/login.js";
 import commandDispatcher from "./src/commands/commandDispatcher.js";
+import censor from "./src/bot/censorship.js";
 
 // import the discord.js module
 const Discord = require('discord.js');
@@ -19,6 +20,7 @@ bot.on('ready', () => {
 signIn.login(bot);
 
 bot.on('message', message => {
+    message = censor(message);
     commandDispatcher(message, bot.user);
 });
 

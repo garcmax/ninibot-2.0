@@ -6,8 +6,10 @@
         "langAlreadySet": "I'm already speaking english !",
         "internetKO": "It seems that something's wrong with internet.",
         "imgurSearchKO": "Imgur doesn't have any image from your query.",
-        "imgurAPIKO": "Something went wrong with imgurAPI. Blame Niwa.",
-        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <query>"
+        "imgurAPIKO": "Something went wrong with imgur API. Blame Niwa.",
+        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <query>",
+        "ytSearchKO": "Youtube doesn't have any videos from your query",
+        "ytAPIKO": "Something went wrong with youtube API. Blame Niwa."
     },
     "fr" : {
         "ping" : "Pong ! Je m'exprime en français et suis en v",
@@ -17,6 +19,8 @@
         "internetKO": "Il semble qu'il y ait un problème avec internet.",
         "imgurSearchKO": "Imgur n'a pas d'image correspondant à ta recherche",
         "imgurAPIKO": "Quelquechose s'est mal passé avec l'API imgur. Blame Niwa.",
-        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <recherche>"
+        "imgurHelp": "!imgur -[top][viral] -[day][week][year] <recherche>",
+        "ytSearchKO": "Youtube n'a pas de vidéo correspondant à ta recherche",
+        "ytAPIKO": "Quelquechose s'est mal passé avec l'API youtube. Blame Niwa."
     }
 }

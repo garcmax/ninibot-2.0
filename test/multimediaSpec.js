@@ -191,3 +191,26 @@ describe('treat youtube response', function () {
         bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].ytAPIKO, "message").should.be.equal(true);
     });
 });
+
+describe ('youtube search', function () {
+  beforeEach(function() {
+    sinon.stub(bot, 'replyInPM');
+    sinon.stub(request, 'get');
+  });
+  afterEach(function() {
+      request.get.restore();
+      bot.replyInPM.restore();
+  });  
+  it('should get a video', function (done) {
+    let message = {
+        content: "!yt rhapsody"
+    };
+    let options = {
+        url: "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=relevance&type=video&q=" + "rhapsody" + "&key=" + config.credentials.googleToken
+    };
+    mm.youtube(message);
+    request.get.called.should.be.equal(true);
+    request.get.calledWith(options).should.be.equal(true);
+    done();
+  });
+});
