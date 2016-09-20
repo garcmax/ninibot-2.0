@@ -69,6 +69,7 @@ describe('add words to censor list', function () {
         }
         orwell.addCensoredWord(message);
         config.addCensoredWord.calledOnce.should.equal(true);
+        config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
         bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordKO, message).should.equal(true);
         done();
