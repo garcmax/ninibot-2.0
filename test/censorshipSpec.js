@@ -61,15 +61,16 @@ describe('add words to censor list', function () {
         done();
     });
     it('should manage error from config', function (done) {
-        let error = new Error("EOINT");
-        sinon.stub(config, "addCensoredWord");
+        let callback = sinon.spy();
+        sinon.stub(config, "addCensoredWord").callsArg(2, callback);        
         let message = {
             content: '!censor fiat fait'
         }
         orwell.addCensoredWord(message);
+        callback.yield('error');
         config.addCensoredWord.calledOnce.should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
-        bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordOK, message).should.equal(true);
+        bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordKO, message).should.equal(true);
         done();
     });
 });
