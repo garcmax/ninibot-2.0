@@ -43,6 +43,6 @@ export function loadCensored() {
 }
 
 export function addCensoredWord(censor, replace, callback) {
-
+  
   callback();
 }
