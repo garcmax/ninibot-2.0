@@ -10,7 +10,9 @@
         "imgurHelp": "!imgur -[top][viral] -[day][week][year] <query>",
         "ytSearchKO": "Youtube doesn't have any videos from your query",
         "ytAPIKO": "Something went wrong with youtube API. Blame Niwa.",
-        "censorship": "I think what you wanted to say was : "
+        "censorship": "I think what you wanted to say was : ",
+        "addCensoredWordKO" : "ko",
+        "addCensoredWordOK" : "ok"
     },
     "fr" : {
         "ping" : "Pong ! Je m'exprime en français et suis en v",
@@ -23,6 +25,8 @@
         "imgurHelp": "!imgur -[top][viral] -[day][week][year] <recherche>",
         "ytSearchKO": "Youtube n'a pas de vidéo correspondant à ta recherche",
         "ytAPIKO": "Quelquechose s'est mal passé avec l'API youtube. Blame Niwa.",
-        "censorship": "je crois que ce que tu voulais dire est : "
+        "censorship": "je crois que ce que tu voulais dire est : ",
+        "addCensoredWordKO" : "ko",
+        "addCensoredWordOK" : "ok"
     }
 }

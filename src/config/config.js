@@ -37,3 +37,7 @@ export function loadFiles() {
   censored = JSON.parse(cs); 
   console.log('censored is loaded');
 }
+
+export function addCensoredWord(censor, replace, callback) {
+
+}
