@@ -14,7 +14,7 @@
     },
     "fr" : {
         "ping" : "Pong ! Je m'exprime en français et suis en v",
-        "langOK": "Je parle français ! Nos ancètres les gaulix. :flag_fr:",
+        "langOK": "Je parle français ! Nos ancêtres les gaulix. :flag_fr:",
         "langKO" : "Je ne connais pas encore cette langue.",
         "langAlreadySet": "Je m'exprime déjà en français !",
         "internetKO": "Il semble qu'il y ait un problème avec internet.",

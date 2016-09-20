@@ -15,6 +15,7 @@ export const url = {
 }
 
 export var strings;
+export var censored;
 
 let instance = null;
 
@@ -32,4 +33,7 @@ export function loadFiles() {
   let str = fs.readFileSync('./src/static/strings.json', 'utf8');
   strings = JSON.parse(str); 
   console.log('strings is loaded');
+  let cs = fs.readFileSync('./src/static/censored.json', 'utf8');
+  censored = JSON.parse(cs); 
+  console.log('censored is loaded');
 }

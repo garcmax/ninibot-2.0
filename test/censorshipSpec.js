@@ -40,4 +40,8 @@ describe('censoring', function() {
         ret.should.be.equal(1);
         done();
     });
+    it('should add a word to censored strings', function(done) {
+        config.censored.size.should.be.equal(3);
+        done();
+    });
 });
