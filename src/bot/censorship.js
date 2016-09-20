@@ -7,11 +7,11 @@ const lang = new config.Language();
 export function addCensoredWord(message) {
     let opts = message.content.split(/\s/);
     config.addCensoredWord(opts[1], opts[2], function(err) {
-        console.log(err);
         if (err) {
             bot.replyInPM(config.strings[lang.countryCode].addCensoredWordKO, message);
+        } else {
+            bot.replyInPM(config.strings[lang.countryCode].addCensoredWordOK, message);
         }
-        bot.replyInPM(config.strings[lang.countryCode].addCensoredWordOK, message);
     });
 }
 

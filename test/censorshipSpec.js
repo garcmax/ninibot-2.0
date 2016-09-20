@@ -43,7 +43,7 @@ describe('censoring', function () {
 });
 
 describe('add words to censor list', function () {
-     beforeEach(function () {
+    beforeEach(function () {
         sinon.stub(bot, 'replyInPM');
     });
     afterEach(function () {
@@ -51,23 +51,23 @@ describe('add words to censor list', function () {
         bot.replyInPM.restore();
     });
     it('should add a word to censored strings', function (done) {
-        sinon.stub(config, "addCensoredWord");
+        sinon.stub(config, "addCensoredWord").yields(undefined);
         let message = {
             content: '!censor fiat fait'
-        }
+        }        
         orwell.addCensoredWord(message);
         config.addCensoredWord.calledOnce.should.equal(true);
-        config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);        
+        config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
+        bot.replyInPM.calledOnce.should.equal(true);
+        bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordOK, message).should.equal(true);
         done();
     });
     it('should manage error from config', function (done) {
-        let callback = sinon.spy();
-        sinon.stub(config, "addCensoredWord").callsArg(2, callback);        
+        sinon.stub(config, "addCensoredWord").yields("error");;
         let message = {
             content: '!censor fiat fait'
         }
         orwell.addCensoredWord(message);
-        callback.yield('error');
         config.addCensoredWord.calledOnce.should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
         bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordKO, message).should.equal(true);
