@@ -19,21 +19,25 @@ describe('censoring', function() {
     });
     it('should censor chocolatine', function (done) {
         let message = {
-            content :'chocolatine'
+            content :'chocolatine',
+            delete : function () {return 0;}
         }
-        message = censor(message);
+        sinon.spy(message, "delete");
+        let ret = censor(message);
         bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].censorship, message).should.be.equal(true);
-        message.should.be.equal(message);
+        bot.replyWithAuthor.calledWith(`${config.strings['en'].censorship} pain au chocolat`, message).should.be.equal(true);
+        message.delete.calledOnce.should.be.equal(true);
+        ret.should.be.equal(0);
+        message.delete.restore();
         done();
     });
      it('should not censor tzeentch', function (done) {
         let message = {
             content :'tzeentch'
         }
-        message = censor(message);
+        let ret = censor(message);
         bot.replyWithAuthor.calledOnce.should.be.equal(false);        
-        message.should.be.equal(message);
+        ret.should.be.equal(1);
         done();
     });
 });

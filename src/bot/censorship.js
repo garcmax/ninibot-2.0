@@ -6,10 +6,15 @@ const lang = new config.Language();
 
 function censor(message) {
     let content = message.content;
-    content = content.replace(/chocolatine/gi, "pain au chocolat");
-    message.content = content;
-    bot.replyWithAuthor(config.strings['en'].censorship, message);
-    return message;
+    if (content.search(/chocolatine/) != -1) {
+        content = content.replace(/chocolatine/gi, "pain au chocolat");
+        content = `${config.strings['en'].censorship} ${content}`;
+        console.log(content);
+        bot.replyWithAuthor(content, message);
+        message.delete();
+        return 0; 
+    }
+    return 1;
 }
 
 export default censor;
