@@ -24,9 +24,9 @@ bot.on('ready', () => {
 signIn.login(bot);
 
 bot.on('message', message => {
-    if (censor(message) == 1) {
+//    if (censor(message) == 1) {
         commandDispatcher(message, bot.user);
-    }
+//    }
 });
 
 bot.on('error', error => {
