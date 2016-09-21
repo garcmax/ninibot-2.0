@@ -70,12 +70,12 @@ describe ('imgur search', function () {
         content: "!imgur slaanesh"
     };
     let options = {
-        url: config.url.imgur + "/?q=slaanesh",
+        url: config.url.imgurAPI + "/?q=slaanesh",
         headers: {
           'Authorization' : config.credentials.imgurId
         }
     };
-    mm.imgur(message);
+    mm.imgur(message);    
     request.get.called.should.be.equal(true);
     request.get.calledWith(options).should.be.equal(true);
     done();

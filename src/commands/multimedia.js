@@ -39,6 +39,7 @@ export function buildImgurQuery(opts) {
  */
 export function imgurCallback(error, response, message) {
     if (error) {
+      console.log(error);
       bot.replyWithAuthor(config.strings[lang.countryCode].internetKO, message);
     } else {
       let res = JSON.parse(response.body); 
@@ -63,7 +64,7 @@ export function imgur(message) {
       bot.replyInPM(config.strings[lang.countryCode].imgurHelp, message);
     } else {
       let options = {
-      url: config.url.imgur + query,
+      url: config.url.imgurAPI + query,
       headers: {
         'Authorization' : config.credentials.imgurId
       }
@@ -79,6 +80,7 @@ export function imgur(message) {
  */
 export function ytCallback(error, response, message) {
     if (error) {
+      console.log(error);
       bot.replyWithAuthor(config.strings[lang.countryCode].internetKO, message);
     } else {
       let res = JSON.parse(response.body); 
@@ -99,7 +101,7 @@ export function ytCallback(error, response, message) {
 export function youtube(message) {
   let query = encodeUrl(message.content.substr(4));
   let options = {
-    url: "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=relevance&type=video&q=" + query + "&key=" + config.credentials.googleToken,
+    url: config.url.youtubeAPI + query + "&key=" + config.credentials.googleToken,
   };
    request.get(options, function(error, response) {
         ytCallback(error, response, message);
