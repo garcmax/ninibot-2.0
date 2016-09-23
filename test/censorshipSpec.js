@@ -43,18 +43,25 @@ describe('censoring', function () {
 });
 
 describe('add words to censor list', function () {
+    var message;
+    before(function () {
+        message = {
+            content: '!censor fiat fait',
+            member: "member",
+            guild: {owner: "member"}
+        }
+    });
     beforeEach(function () {
         sinon.stub(bot, 'replyInPM');
+        sinon.stub(bot, 'replyInChannel');
     });
     afterEach(function () {
         config.addCensoredWord.restore();
         bot.replyInPM.restore();
+        bot.replyInChannel.restore();
     });
     it('should add a word to censored strings', function (done) {
-        sinon.stub(config, "addCensoredWord").yields(undefined);
-        let message = {
-            content: '!censor fiat fait'
-        }        
+        sinon.stub(config, "addCensoredWord").yields(undefined);     
         orwell.addCensoredWord(message);
         config.addCensoredWord.calledOnce.should.equal(true);
         config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
@@ -64,14 +71,19 @@ describe('add words to censor list', function () {
     });
     it('should manage error from config', function (done) {
         sinon.stub(config, "addCensoredWord").yields("error");;
-        let message = {
-            content: '!censor fiat fait'
-        }
         orwell.addCensoredWord(message);
         config.addCensoredWord.calledOnce.should.equal(true);
         config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
         bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordKO, message).should.equal(true);
+        done();
+    });
+    it('should check role', function (done) {        
+        sinon.stub(config, "addCensoredWord").yields("error");
+        message.guild.owner = "foo"; 
+        orwell.addCensoredWord(message);        
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].badPermission, message).should.equal(true);
         done();
     });
 });

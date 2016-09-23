@@ -4,6 +4,7 @@
   "description": "A multi-purpose discord bot",
   "main": "ninibot.js",
   "scripts": {
+    "devdemon": "nodemon --exec babel-node ninibot.js",
     "dev": "babel-node ninibot.js",
     "jshint": "jshint ninibot.js src/**",
     "test": "jshint && mocha -w --compilers js:babel-register"
@@ -28,6 +29,7 @@
     "babel-preset-es2015": "^6.14.0",
     "jshint": "^2.9.3",
     "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
     "should": "^11.1.0",
     "sinon": "^1.17.5",
     "sinon-as-promised": "^4.0.2"

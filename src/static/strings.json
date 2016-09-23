@@ -14,7 +14,8 @@
         "addCensoredWordKO" : "ko",
         "addCensoredWordOK" : "ok",
         "displayListPart01" : "Those words : ",
-        "displayListPart02" : "are replaces by those Shagi's compliant ones : "
+        "displayListPart02" : "are replaces by those Shagi's compliant ones : ",
+        "badPermission" : "You do not have this kind of privilege..."
     },
     "fr" : {
         "ping" : "Pong ! Je m'exprime en français et suis en v",
@@ -31,6 +32,7 @@
         "addCensoredWordKO" : "ko",
         "addCensoredWordOK" : "ok",
         "displayListPart01" : "Les mots : ",
-        "displayListPart02" : "sont remplacés par ceux-ci (au bon vouloir de Shagi) : "
+        "displayListPart02" : "sont remplacés par ceux-ci (au bon vouloir de Shagi) : ",
+        "badPermission" : "Tu n'as pas les droits pour faire ceci..."
     }
 }

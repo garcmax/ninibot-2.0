@@ -18,15 +18,19 @@ export function displayCensorList(message) {
 }
 
 export function addCensoredWord(message) {
-    let opts = message.content.split(/\s/);
-    config.addCensoredWord(opts[1], opts[2], function(err) {
-        if (err) {
-            console.log(err);
-            bot.replyInPM(config.strings[lang.countryCode].addCensoredWordKO, message);
-        } else {
-            bot.replyInPM(config.strings[lang.countryCode].addCensoredWordOK, message);
-        }
-    });
+    if (message.member === message.guild.owner) {
+        let opts = message.content.split(/\s/);
+        config.addCensoredWord(opts[1], opts[2], function(err) {
+            if (err) {
+                console.log(err);
+                bot.replyInPM(config.strings[lang.countryCode].addCensoredWordKO, message);
+            } else {
+                bot.replyInPM(config.strings[lang.countryCode].addCensoredWordOK, message);
+            }
+        });
+    } else {
+        bot.replyInChannel(config.strings[lang.countryCode].badPermission, message);
+    }
 }
 
 export function censor(message) {
