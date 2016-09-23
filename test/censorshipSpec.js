@@ -75,3 +75,22 @@ describe('add words to censor list', function () {
         done();
     });
 });
+
+describe('display the censor list', function () {
+    beforeEach(function () {
+        sinon.stub(bot, 'replyInChannel');
+    });
+    afterEach(function () {
+        config.addCensoredWord.restore();
+        bot.replyInChannel.restore();
+    });
+    it('should display the list', function (done) {
+        sinon.stub(config, "addCensoredWord").yields(undefined);
+        let message = {
+            content: '!orwell'
+        }        
+        orwell.displayCensorList(message);        
+        bot.replyInChannel.calledOnce.should.equal(true);
+        done();
+    });
+});

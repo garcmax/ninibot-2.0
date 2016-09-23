@@ -34,25 +34,16 @@ import * as config from "../src/config/config.js";
     });
 });*/
 
-describe('censoring list', function () {
+/*describe('censoring list', function () {
     it('should complete the list', function(done) {
         let callback = sinon.spy();
         sinon.stub(config, "loadCensored");
-        sinon.stub(fs, "open").yields(undefined, 1);
-        //sinon.stub(fs, "write").yields(undefined, 1, ",[\"fiat\", \"fait\"]}");
-
-
-        config.addCensoredWord("fiat", "fait", callback);
-        //fs.open.calledOnce.should.equal(true);
-        //fs.open.calledWith('./src/static/censored.json', 'w').should.equal(true);
-        fs.write.calledOnce.should.equal(true);
+      
+        config.addCensoredWord("fiat", "fait", callback, './test/test.json');
         config.loadCensored.calledOnce.should.equal(true);
         callback.calledOnce.should.equal(true);
-
-        fs.open.restore();
-        fs.write.restore();
+        
         callback.reset();
-
         done();
     });
-});
+});*/

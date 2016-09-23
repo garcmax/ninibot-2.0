@@ -2,7 +2,7 @@
 
 import * as signIn from "./src/login/login.js";
 import commandDispatcher from "./src/commands/commandDispatcher.js";
-import censor from "./src/bot/censorship.js";
+import * as orwell from "./src/bot/censorship.js";
 import * as config from "./src/config/config.js";
 
 // import the discord.js module
@@ -24,12 +24,14 @@ bot.on('ready', () => {
 signIn.login(bot);
 
 bot.on('message', message => {
-//    if (censor(message) == 1) {
-        commandDispatcher(message, bot.user);
-//    }
+  if (message.author != bot.user) {
+    if (orwell.censor(message) == 1) {
+      commandDispatcher(message, bot.user);
+    }
+  }
 });
 
 bot.on('error', error => {
-    console.log(error);
+  console.log(error);
 });
 
