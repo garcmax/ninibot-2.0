@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 import * as bot from "./reply.js";
 import * as config from "../config/config.js"
 const lang = new config.Language();
@@ -20,7 +21,7 @@ export function displayCensorList(message) {
 export function addCensoredWord(message) {
     if (message.member === message.guild.owner) {
         let opts = message.content.split(/\s/);
-        config.addCensoredWord(opts[1], opts[2], function(err) {
+        this.writeCensoredWord(opts[1], opts[2], function(err) {
             if (err) {
                 console.log(err);
                 bot.replyInPM(config.strings[lang.countryCode].addCensoredWordKO, message);
@@ -47,4 +48,34 @@ export function censor(message) {
         }
     }
     return 1;
+}
+
+export function writeCensoredWord(ban, replace, callback) {  
+  fs.open(config.censoredFilePath, 'w+', function (err, fd) {
+    if (err) {
+      callback(err);
+    }
+    console.log(`File opened successfully : ${fd}`);
+    let i = 0;
+    while (config.censored[i]) {
+      i++;
+    }
+    let str = JSON.stringify(config.censored);
+    str = str.slice(0, str.length - 1);
+    str += `,\"${i}\" : [\"${ban}\", \"${replace}\"]} `;
+    fs.write(fd, str, function (err, written, string) {
+      if (err) {
+        callback(err)
+      }
+      console.log("Write to file successfully!");
+      fs.close(fd, function(err) {
+        if (err) {
+          callback(err);
+        }
+        console.log("File close successfully!");
+        config.loadCensored();
+      });     
+    });
+  });
+  callback();
 }

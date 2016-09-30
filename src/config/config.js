@@ -14,7 +14,7 @@ export const url = {
   "youtubeVideo": "http://www.youtube.com/watch?v="
 }
 
-const censoredFilePath = process.env.CENSORED_FILE || './src/static/censored.json';
+export const censoredFilePath = process.env.CENSORED_FILE || './src/static/censored.json';
 
 export var strings;
 export var censored;
@@ -44,34 +44,4 @@ export function loadCensored() {
   console.log(cs);
   censored = JSON.parse(cs);
   console.log('censored is loaded');
-}
-
-export function addCensoredWord(censor, replace, callback) {  
-  fs.open(censoredFilePath, 'r+', function (err, fd) {
-    if (err) {
-      callback(err);
-    }
-    console.log(`File opened successfully : ${fd}`);
-    let i = 0;
-    while (censored[i]) {
-      i++;
-    }
-    let str = JSON.stringify(censored);
-    str = str.slice(0, str.length - 1);
-    str += `,\"${i}\" : [\"${censor}\", \"${replace}\"]} `;
-    fs.write(fd, str, function (err, written, string) {
-      if (err) {
-        callback(err)
-      }
-      console.log("Write to file successfully!");
-      fs.close(fd, function(err) {
-        if (err) {
-          callback(err);
-        }
-        console.log("File close successfully!");
-        loadCensored();
-      });     
-    });
-  });
-  callback();
 }

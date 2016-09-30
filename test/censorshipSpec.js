@@ -1,6 +1,7 @@
 'use strict';
 const should = require("should");
 const sinon = require("sinon");
+const fs = require('fs');
 
 import * as orwell from "../src/bot/censorship.js";
 import * as bot from "../src/bot/reply.js";
@@ -48,40 +49,42 @@ describe('add words to censor list', function () {
         message = {
             content: '!censor fiat fait',
             member: "member",
-            guild: {owner: "member"}
+            guild: { owner: "member" }
         }
     });
-    beforeEach(function () {
+    beforeEach(function () {        
         sinon.stub(bot, 'replyInPM');
         sinon.stub(bot, 'replyInChannel');
+        sinon.stub(config, 'loadCensored');
     });
     afterEach(function () {
-        config.addCensoredWord.restore();
+        orwell.writeCensoredWord.restore();
         bot.replyInPM.restore();
         bot.replyInChannel.restore();
-    });
+        config.loadCensored.restore();
+    });    
     it('should add a word to censored strings', function (done) {
-        sinon.stub(config, "addCensoredWord").yields(undefined);     
+        sinon.stub(orwell, 'writeCensoredWord').yields(undefined);
         orwell.addCensoredWord(message);
-        config.addCensoredWord.calledOnce.should.equal(true);
-        config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
+        orwell.writeCensoredWord.calledOnce.should.equal(true);
+        orwell.writeCensoredWord.calledWith("fiat", "fait").should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
         bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordOK, message).should.equal(true);
         done();
     });
     it('should manage error from config', function (done) {
-        sinon.stub(config, "addCensoredWord").yields("error");;
+        sinon.stub(orwell, 'writeCensoredWord').yields("error");;
         orwell.addCensoredWord(message);
-        config.addCensoredWord.calledOnce.should.equal(true);
-        config.addCensoredWord.calledWith("fiat", "fait").should.equal(true);
+        orwell.writeCensoredWord.calledOnce.should.equal(true);
+        orwell.writeCensoredWord.calledWith("fiat", "fait").should.equal(true);
         bot.replyInPM.calledOnce.should.equal(true);
         bot.replyInPM.calledWith(config.strings[lang.countryCode].addCensoredWordKO, message).should.equal(true);
         done();
     });
-    it('should check role', function (done) {        
-        sinon.stub(config, "addCensoredWord").yields("error");
-        message.guild.owner = "foo"; 
-        orwell.addCensoredWord(message);        
+    it('should check role', function (done) {
+        sinon.stub(orwell, 'writeCensoredWord').yields("error");
+        message.guild.owner = "foo";
+        orwell.addCensoredWord(message);
         bot.replyInChannel.calledOnce.should.equal(true);
         bot.replyInChannel.calledWith(config.strings[lang.countryCode].badPermission, message).should.equal(true);
         done();
@@ -93,15 +96,13 @@ describe('display the censor list', function () {
         sinon.stub(bot, 'replyInChannel');
     });
     afterEach(function () {
-        config.addCensoredWord.restore();
         bot.replyInChannel.restore();
     });
-    it('should display the list', function (done) {
-        sinon.stub(config, "addCensoredWord").yields(undefined);
+    it('should display the list', function (done) {        
         let message = {
             content: '!orwell'
-        }        
-        orwell.displayCensorList(message);        
+        }
+        orwell.displayCensorList(message);
         bot.replyInChannel.calledOnce.should.equal(true);
         done();
     });
