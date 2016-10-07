@@ -31,6 +31,12 @@ bot.on('message', message => {
   }
 });
 
+bot.on('disconnect', function(error) {
+    if (error)
+      console.log(error);
+    console.log("disconnect");
+});
+
 bot.on('error', error => {
   console.log(error);
 });
