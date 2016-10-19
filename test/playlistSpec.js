@@ -19,6 +19,7 @@ describe ('playlist class helper', function () {
   });
   it('should delete an url from playlist', function (done) {
     let url = "https://www.youtube.com/watch?v=MZuSaudKc68";
+    pl.add(url);
     pl.remove(url);
     pl.getPlaylist().length.should.equal(0);
     done();
