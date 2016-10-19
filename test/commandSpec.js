@@ -70,4 +70,3 @@ describe ('commands call', function () {
     done();
   });
 });
-
