@@ -15,7 +15,10 @@
         "addCensoredWordOK" : "ok",
         "displayListPart01" : "Those words : ",
         "displayListPart02" : "are replaces by those Shagi's compliant ones : ",
-        "badPermission" : "You do not have this kind of privilege..."
+        "badPermission" : "You do not have this kind of privilege...",
+        "diceOK" : "results",
+        "diceKO" : "are you sure of your dices ?",
+        "from" : "from"
     },
     "fr" : {
         "ping" : "Pong ! Je m'exprime en français et suis en v",
@@ -33,6 +36,9 @@
         "addCensoredWordOK" : "ok",
         "displayListPart01" : "Les mots : ",
         "displayListPart02" : "sont remplacés par ceux-ci (au bon vouloir de Shagi) : ",
-        "badPermission" : "Tu n'as pas les droits pour faire ceci..."
+        "badPermission" : "Tu n'as pas les droits pour faire ceci...",
+        "diceOK" : "résultats",
+        "diceKO" : "es-tu sûr de tes dés ?",
+        "from" : "du"
     }
 }
