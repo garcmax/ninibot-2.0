@@ -7,8 +7,7 @@ import * as config from "../config/config.js";
 export function login(bot) {
     bot.login(config.credentials.discordToken).then(message => {
         console.log(message);
-        console.log(bot.channels);
-        console.log(bot.voiceConnections);
+        
     });
 }
 
