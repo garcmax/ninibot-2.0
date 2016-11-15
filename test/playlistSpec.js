@@ -2,7 +2,7 @@
 const should = require("should");
 const sinon = require("sinon");
 
-import Playlist from "../src/musicHelper/playlist.js";
+import Playlist from "../src/music/playlist.js";
 
 describe ('playlist class helper', function () {
   var pl;
