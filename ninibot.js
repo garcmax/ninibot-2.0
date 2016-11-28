@@ -4,6 +4,7 @@ import * as signIn from "./src/login/login.js";
 import commandDispatcher from "./src/commands/commandDispatcher.js";
 import * as orwell from "./src/bot/censorship.js";
 import * as config from "./src/config/config.js";
+import * as music from "./src/music/music.js";
 
 // import the discord.js module
 const Discord = require('discord.js');
@@ -22,6 +23,7 @@ bot.on('ready', () => {
 
 //login
 signIn.login(bot);
+music.extractMusicChannelConnection(bot);
 
 bot.on('message', message => {
   if (message.author != bot.user) {

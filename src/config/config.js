@@ -18,6 +18,7 @@ export const censoredFilePath = process.env.CENSORED_FILE || './src/static/censo
 
 export var strings;
 export var censored;
+export var musicChannelConnection;
 
 let instance = null;
 

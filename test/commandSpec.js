@@ -5,6 +5,7 @@ const sinon = require("sinon");
 import * as ping from "../src/commands/ping.js";
 import * as mm from "../src/commands/multimedia.js";
 import * as lang from "../src/commands/lang.js";
+import * as music from "../src/music/music.js";
 import * as orwell from "../src/bot/censorship.js";
 import commandDispatcher from "../src/commands/commandDispatcher.js";
 
@@ -25,6 +26,8 @@ describe ('commands call', function () {
     sinon.stub(lang, "change");
     sinon.stub(orwell, "addCensoredWord");
     sinon.stub(orwell, "displayCensorList");
+    sinon.stub(music, "playMusic");
+    sinon.stub(music, "addMusic");
   });
   afterEach(function() {
     ping.pong.restore();
@@ -33,6 +36,8 @@ describe ('commands call', function () {
     lang.change.restore();
     orwell.addCensoredWord.restore();
     orwell.displayCensorList.restore();
+    music.playMusic.restore();
+    music.addMusic.restore();
   });
   it('should execute ping command', function (done) {
     commandDispatcher(message, undefined);
@@ -67,6 +72,18 @@ describe ('commands call', function () {
     message.content ="!orwell";
     commandDispatcher(message, undefined);
     orwell.displayCensorList.calledOnce.should.equal(true);
+    done();
+  });
+  it('should execute play music command', function (done) {
+    message.content ="!play";
+    commandDispatcher(message, undefined);
+    music.playMusic.calledOnce.should.equal(true);
+    done();
+  });
+   it('should execute add music command', function (done) {
+    message.content ="!add";
+    commandDispatcher(message, undefined);
+    music.addMusic.calledOnce.should.equal(true);
     done();
   });
 });
