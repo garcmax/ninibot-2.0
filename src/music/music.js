@@ -1,35 +1,18 @@
 'use strict';
 
-import * as config from "../config/config.js";
-import Playlist from "./playlist.js";
 import MusicPlayer from "./musicPlayer.js";
-import * as bot from "../bot/reply.js";
+import * as config from "../config/config.js";
+import * as dispatcher from "../commands/commandDispatcher.js"; 
 
-const lang = new config.Language(); 
-var pl = new Playlist();
-var mp;
-var dispatcher = {};
+var mp = new MusicPlayer();
 
-export function extractMusicChannelConnection(bot) {
-    let musicChannel = bot.channels.filter(isMusicChannel);
-    if (musicChannel) {
-        musicChannel.join().then(connection => {
-            mp = new MusicPlayer(connection);
-        }).catch(console.error);
-        console.log(`music channel = ${musicChannel}`);
+export function manageCommands(message) {
+    let command = dispatcher.extractCommand(message);
+    if (command === '!play') {
+        mp.play();
+    } else if (command === '!pause') {
+        mp.pause();
+    } else if (command === '!resume') {
+        mp.resume();
     }
-}
-
-function isMusicChannel(value) {
-    console.log(`type = ${value.type} && name = ${value.name}`)
-    return value.type === 'voice' && value.name === 'Music';
-}
-
-export function addMusic(message) {
-    let url = message.content.substr(5);
-    pl.add(url);
-}
-
-export function playMusic() {
-    mp.play();    
 }

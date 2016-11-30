@@ -18,7 +18,18 @@ export const censoredFilePath = process.env.CENSORED_FILE || './src/static/censo
 
 export var strings;
 export var censored;
-export var musicChannelConnection;
+
+let instanceMusicConnection = null;
+
+export class MusicConnection {
+  constructor() {
+    if (!instanceMusicConnection) {
+      instanceMusicConnection = this;
+    }
+    this.musicChannelConnection = {};
+    return instanceMusicConnection;
+  }
+}
 
 let instance = null;
 
@@ -32,17 +43,19 @@ export class Language {
   }
 }
 
+
+
 export function loadFiles() {
   let str = fs.readFileSync('./src/static/strings.json', 'utf8');
-  console.log(str);
+  //console.log(str);
   strings = JSON.parse(str);
   console.log('strings is loaded');
   loadCensored();
 }
 
 export function loadCensored() {
-  let cs = fs.readFileSync(censoredFilePath, 'utf8');  
-  console.log(cs);
+  let cs = fs.readFileSync(censoredFilePath, 'utf8');
+  //console.log(cs);
   censored = JSON.parse(cs);
   console.log('censored is loaded');
 }

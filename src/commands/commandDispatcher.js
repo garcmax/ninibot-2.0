@@ -4,7 +4,6 @@ import * as ping from "./ping.js";
 import * as mm from "./multimedia.js";
 import * as lang from "./lang.js";
 import * as orwell from "../bot/censorship.js";
-import * as music from "../music/music.js";
 
 /**
  * Extract the desired command from the message
@@ -31,11 +30,9 @@ function commandDispatcher(message) {
             orwell.addCensoredWord(message);
         } else if (command === '!orwell') {
             orwell.displayCensorList(message);
-        } else if (command === '!play') {
-            music.playMusic();
-        } else if (command === '!add') {
-            music.addMusic(message);
-        }
+        } 
 }
+
+
 
 export default commandDispatcher;

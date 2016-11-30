@@ -2,36 +2,24 @@
 
 const ytdl = require('ytdl-core');
 
+import * as config from "../config/config.js";
+const musicConnection = new config.MusicConnection();
+
 export default class MusicPlayer {
-    constructor(connection) {
-        this.playing = false;
-        this.musicChannelConnection = connection;
-        this.dispatcher;
+    constructor() {
+    
     }
 
-    isPlaying() {
-        return this.playing;
+    play() {
+                
     }
 
-    play() {        
-        this.playing = true;
-        const stream = ytdl('https://www.youtube.com/watch?v=XAWgeLF9EVQ', {filter : 'audioonly'});
-        stream.on('info', function(info) {
-            this.dispatcher = this.musicChannelConnection.playStream(stream);        
-            this.dispatcher.on('start', function() {
-                console.log("start");
-            });
-            this.dispatcher.on('end', function() {
-                console.log("end");
-            });
-        }).bind(this);
+    pause() {
+        
     }
 
-    pause(dispatcher) {
-        this.dispatcher.pause();
+    resume() {
+        
     }
 
-    resume(dispatcher) {
-        this.dispatcher.resume();
-    }
 }
