@@ -8,8 +8,12 @@ import MusicPlayer from "../src/music/musicPlayer.js";
 import * as config from "../src/config/config.js";
 
 describe ('Music Player', function () {
- 
-  it('should xxx', function (done) {
+  var musicPlayer;
+  before(function() {
+    musicPlayer = new MusicPlayer();
+  });
+  it('should play the first file from playlist', function (done) {
+    musicPlayer.play();
     done();
   });  
   

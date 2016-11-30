@@ -4,7 +4,7 @@ import * as signIn from "./src/login/login.js";
 import commandDispatcher from "./src/commands/commandDispatcher.js";
 import * as orwell from "./src/bot/censorship.js";
 import * as config from "./src/config/config.js";
-import * as music from "./src/config/music.js";
+import * as music from "./src/music/music.js";
 
 // import the discord.js module
 const Discord = require('discord.js');
@@ -27,9 +27,9 @@ signIn.login(bot);
 bot.on('message', message => {
   if (message.author != bot.user) {
     if (orwell.censor(message) == 1) {
-      commandDispatcher(message, bot.user);
+      commandDispatcher(message);
     } else if (message.channel.name === 'music') {
-      
+      music.manageCommands(message);
     }
   }
 });
