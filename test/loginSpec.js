@@ -21,29 +21,10 @@ describe('login process', function () {
     });
     afterEach(function () {
         bot.login.restore();
-        bot.channels.filter.restore();
     });
-    it("should flowlessly log", function (done) {
-        sinon.stub(bot.channels, 'filter').returns(null);
+    it("should flowlessly log", function (done) {       
         login.login(bot);
         bot.login.calledOnce.should.be.true();
         done();
     });
-    it("should connect to musicChannel", function (done) {
-        let connection = {connection : "connection"};
-        let musicChannel = {
-            first: function () {
-                return {
-                    join: function () {
-                        return connection;
-                    }
-                }
-            }
-        }    
-        sinon.stub(bot.channels, 'filter').returns(musicChannel);
-        login.login(bot);
-        bot.login.calledOnce.should.be.true();
-        done();
-    });
-
 });

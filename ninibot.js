@@ -26,10 +26,11 @@ signIn.login(bot);
 
 bot.on('message', message => {
   if (message.author != bot.user) {
-    if (orwell.censor(message) == 1) {
-      commandDispatcher(message);
-    } else if (message.channel.name === 'music') {
+    if (message.channel.name === 'music') {
+      console.log(`ninibot.js : ${message.content}`);
       music.manageCommands(message);
+    } else if (orwell.censor(message) == 1) {
+      commandDispatcher(message);
     }
   }
 });

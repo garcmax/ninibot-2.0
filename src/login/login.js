@@ -8,17 +8,8 @@ const musicConnection = new config.MusicConnection();
  */
 export function login(bot) {
     bot.login(config.credentials.discordToken).then(message => {        
-        let musicChannel = bot.channels.filter(isMusicChannel);
-        if (musicChannel) {
-            musicConnection.musicChannelConnection = musicChannel.first().join();
-        }
         console.log(`login token : ${message}`);
     });
-}
-
-function isMusicChannel(value) {
-    console.log(`type = ${value.type} && name = ${value.name}`)
-    return value.type === 'voice' && value.name === 'Music';
 }
 
 /**
