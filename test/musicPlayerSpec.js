@@ -7,14 +7,18 @@ const ytdl = require('ytdl-core');
 import MusicPlayer from "../src/music/musicPlayer.js";
 import * as config from "../src/config/config.js";
 
-/*describe ('Music Player', function () {
+describe ('Music Player', function () {
   var musicPlayer;
   before(function() {
     musicPlayer = new MusicPlayer();
   });
-  it('should play the first file from playlist', function (done) {
-    musicPlayer.play();
+  it('should manage the playlist', function (done) {
+    musicPlayer.addToPlaylist('https://www.youtube.com/watch?v=J56VVtlZCGE');
+    let playlist = musicPlayer.getPlaylist();
+    playlist.should.exist;
+    playlist.length.should.equal(1);
+    playlist[0].url.should.equal('https://www.youtube.com/watch?v=J56VVtlZCGE');
     done();
   });  
   
-});*/
+});
