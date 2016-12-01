@@ -7,7 +7,7 @@ const ytdl = require('ytdl-core');
 import MusicPlayer from "../src/music/musicPlayer.js";
 import * as config from "../src/config/config.js";
 
-describe ('Music Player', function () {
+/*describe ('Music Player', function () {
   var musicPlayer;
   before(function() {
     musicPlayer = new MusicPlayer();
@@ -17,4 +17,4 @@ describe ('Music Player', function () {
     done();
   });  
   
-});
+});*/

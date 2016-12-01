@@ -8,7 +8,7 @@ import MusicPlayer from "../src/music/musicPlayer.js";
 import * as music from "../src/music/music.js";
 import * as config from "../src/config/config.js";
 
-describe('Music Manager', function () {
+/*describe('Music Manager', function () {
     var message;
     before(function () {
         message = {
@@ -19,7 +19,7 @@ describe('Music Manager', function () {
     /*
     ** http://stackoverflow.com/questions/32695244/how-to-mock-dependency-classes-for-unit-testing-with-mocha-js
     */
-    it('should play the music', function (done) {
+   /* it('should play the music', function (done) {
         sinon.stub(MusicPlayer.prototype, 'play');
         music.manageCommands(message);
         MusicPlayer.prototype.play.calledOnce.should.equal(true);
@@ -42,4 +42,4 @@ describe('Music Manager', function () {
         MusicPlayer.prototype.resume.restore();
         done();
     });
-});
+});*/

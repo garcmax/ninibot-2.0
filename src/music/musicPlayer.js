@@ -16,11 +16,9 @@ export default class MusicPlayer {
     }
 
     play() {
-        const stream = ytdl(this.playList.getPlaylist()[0].url, {filter : 'audioonly'});
-        stream.on('info', function(info) {
-            console.log(info.length_seconds);
-            console.log(this.connection);
-            this.connection.then(playStream(stream, { seek: 0, volume: 1 }));
+        const stream = ytdl(this.playList.getPlaylist()[0].url, {filter : 'audioonly'});        
+        this.connection.then( connection => {
+            connection.playStream(stream, { seek: 0, volume: 1 });
         });
     }
 
@@ -33,7 +31,6 @@ export default class MusicPlayer {
     }
 
     setConnection(connection) {
-        console.log(connection);
         this.connection = connection;
     }
 

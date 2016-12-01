@@ -28,7 +28,7 @@ bot.on('message', message => {
   if (message.author != bot.user) {
     if (message.channel.name === 'music') {
       console.log(`ninibot.js : ${message.content}`);
-      music.manageCommands(message);
+      music.manageCommands(message, bot);
     } else if (orwell.censor(message) == 1) {
       commandDispatcher(message);
     }

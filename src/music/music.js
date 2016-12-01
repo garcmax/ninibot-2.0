@@ -9,23 +9,24 @@ var mp = new MusicPlayer();
 function connect(bot) {
     let musicChannel = bot.channels.filter(isMusicChannel);
     if (musicChannel) {
-        mp.setConnection(musicChannel.first().join());        
+        mp.setConnection(musicChannel.first().join());
     }
 }
 
-export function manageCommands(message) {
+export function manageCommands(message, bot) {
     console.log(mp.connection);
     if (!mp.connection) {
         connect(message.client);
-    }
-    let command = dispatcher.extractCommand(message);
-    console.log(`music.js : ${command}`);
-    if (command === '!play') {
-        mp.play();
-    } else if (command === '!pause') {
-        mp.pause();
-    } else if (command === '!resume') {
-        mp.resume();
+    } else {
+        let command = dispatcher.extractCommand(message);
+        console.log(`music.js : ${command}`);
+        if (command === '!play') {
+            mp.play();
+        } else if (command === '!pause') {
+            mp.pause();
+        } else if (command === '!resume') {
+            mp.resume();
+        }
     }
 }
 
