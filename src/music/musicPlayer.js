@@ -12,9 +12,11 @@ export default class MusicPlayer {
     constructor() {     
         this.connection;
         this.dispatcher;
+        this.playing = false;
     }
 
-    play(url, toNextSong) {        
+    play(url, toNextSong) {  
+        this.playing = true;      
         const stream = ytdl(url, {filter : 'audioonly'}); 
         let callback = function callback(dispatcher) {            
             this.setDispatcher(dispatcher);
@@ -32,19 +34,24 @@ export default class MusicPlayer {
 
     
     pause() {
-        
+        this.dispatcher.pause();
     }
 
     resume() {
-        
+        this.dispatcher.resume();
+    }
+
+    isPlaying() {
+        return this.playing;
+    }
+
+    turnOff() {
+        this.playing = !this.playing;
     }
 
     setDispatcher(dispatcher) {
         console.log("i'm in setDispatcher");
-        this.dispatcher = dispatcher;
-        this.dispatcher.on('end', function() {
-            console.log("end outside promise");
-        });
+        this.dispatcher = dispatcher;        
     }
 
     setConnection(connection) {

@@ -13,8 +13,7 @@ describe ('Music Player', function () {
     musicPlayer = new MusicPlayer();
   });
   it('should play a file', function (done) {
-    let i = 2;
-    i.should.equal(3);
+    
     done();
   });  
   

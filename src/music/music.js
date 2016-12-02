@@ -21,7 +21,7 @@ export function manageCommands(message, bot) {
         connect(message.client);
     } else {
         let command = dispatcher.extractCommand(message);
-        if (command === '!play') {
+        if (command === '!play' && !mp.isPlaying()) {
             runPlay();
         } else if (command === '!pause') {
             mp.pause();
@@ -35,11 +35,12 @@ export function manageCommands(message, bot) {
     }
 }
 
-function displayPlaylist(message) { 
+function displayPlaylist(message) {
+    let list = pl.getPlaylist(); 
     let answer = "```";
-    for (let i = 0; i < pl.getPlaylist().length; i++) {
+    for (let i = 0; i < list.length; i++) {
         answer += `
-${pl[i].url}`;
+${list[i].url}`;
     }
     answer += "```";
     bot.replyInChannel(answer, message);
@@ -52,7 +53,6 @@ function addToPlaylist(url) {
 function runPlay() {
     mp.play(pl.current(), function() {
         console.log('in play callback');
-        console.log(pl.getPlaylist());
         if (pl.next()) {
             runPlay();
         }
