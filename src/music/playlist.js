@@ -23,7 +23,11 @@ export default class Playlist {
     }
 
     current() {
-      return this.playlist[this.playlist.length - 1].url;
+      let length = this.playlist.length;
+      if (length > 0) {
+        return this.playlist[this.playlist.length - 1].url;
+      }
+      return undefined;
     }
 
     getPlaylist() {

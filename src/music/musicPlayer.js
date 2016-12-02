@@ -9,30 +9,40 @@ import * as bot from "../bot/reply.js";
 const lang = new config.Language();
 
 export default class MusicPlayer {
-    constructor() {     
+    constructor() {
         this.connection;
         this.dispatcher;
         this.playing = false;
     }
 
-    play(url, toNextSong) {  
-        this.playing = true;      
-        const stream = ytdl(url, {filter : 'audioonly'}); 
-        let callback = function callback(dispatcher) {            
-            this.setDispatcher(dispatcher);
-        }.bind(this);       
-        this.connection.then(connection => {                     
-            let dispatcher = connection.playStream(stream, { seek: 0, volume: 1 });
-            dispatcher.on('end', function() {
-                console.log('end in promise');
-                toNextSong();
+    play(url, toNextSong) {
+        if (url) {
+            this.playing = true;
+            const stream = ytdl(url, { filter: 'audioonly' });
+            stream.on('info', function(info) {
+                console.log(info.length_seconds);
+                playStreamCallback(stream);
             });
-            this.setDispatcher(dispatcher);            
-            callback(dispatcher);
-        });
+
+            let dispatcherCallback = function dispatcherCallback(dispatcher) {
+                this.setDispatcher(dispatcher);
+            }.bind(this);
+
+            let playStreamCallback = function playStreamCallback(st) {
+                this.connection.then(connection => {
+                    let dispatcher = connection.playStream(st, { seek: 0, volume: 5 });
+                    dispatcher.on('end', function() {
+                        console.log('end in promise');
+                        toNextSong();
+                    });
+                    dispatcherCallback(dispatcher);
+                });
+            }.bind(this);
+        }
     }
 
-    
+
+
     pause() {
         this.dispatcher.pause();
     }
@@ -51,10 +61,10 @@ export default class MusicPlayer {
 
     setDispatcher(dispatcher) {
         console.log("i'm in setDispatcher");
-        this.dispatcher = dispatcher;        
+        this.dispatcher = dispatcher;
     }
 
     setConnection(connection) {
         this.connection = connection;
-    }    
+    }
 }

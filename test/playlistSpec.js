@@ -39,6 +39,9 @@ describe ('playlist class helper', function () {
     pl.add("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.add("https://www.youtube.com/watch?v=0L_iOnLNt9N");
     pl.current().should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
+    pl.next();
+    pl.next();
+    (pl.current() === undefined).should.be.true();
     done();
   });
 });
