@@ -20,7 +20,7 @@ export default class MusicPlayer {
             this.playing = true;
             const stream = ytdl(url, { filter: 'audioonly' });
             stream.on('info', function(info) {
-                console.log(info.length_seconds);
+                console.log(`duration : ${info.length_seconds}`);
                 playStreamCallback(stream);
             });
 
@@ -31,6 +31,8 @@ export default class MusicPlayer {
             let playStreamCallback = function playStreamCallback(st) {
                 this.connection.then(connection => {
                     let dispatcher = connection.playStream(st, { seek: 0, volume: 2 });
+                    console.log(`volume : ${dispatcher.volume}`);
+                    console.log(`paused : ${dispatcher.paused}`);
                     dispatcher.on('end', function() {
                         console.log('end in promise');
                         toNextSong();
@@ -56,11 +58,11 @@ export default class MusicPlayer {
 
 
     pause() {
-        this.dispatcher.pause();
+       // this.dispatcher.pause();
     }
 
     resume() {
-        this.dispatcher.resume();
+       // this.dispatcher.resume();
     }
 
     isPlaying() {

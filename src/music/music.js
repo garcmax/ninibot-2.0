@@ -56,7 +56,9 @@ function runPlay() {
         if (pl.next()) {
             runPlay();
         } else {
+            console.log('stop playing');
             mp.turnOff();
+            console.log(mp.isPlaying);
         }
     });
 }
