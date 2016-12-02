@@ -21,7 +21,7 @@ export function manageCommands(message, bot) {
         connect(message.client);
     } else {
         let command = dispatcher.extractCommand(message);
-        if (command === '!play' && !mp.isPlaying()) {
+        if (command === '!play' && !mp.isPlaying() && pl.getPlaylist().length > 0) {
             runPlay();
         } else if (command === '!pause') {
             mp.pause();
