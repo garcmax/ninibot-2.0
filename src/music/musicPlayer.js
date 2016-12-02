@@ -30,10 +30,22 @@ export default class MusicPlayer {
 
             let playStreamCallback = function playStreamCallback(st) {
                 this.connection.then(connection => {
-                    let dispatcher = connection.playStream(st, { seek: 0, volume: 5 });
+                    let dispatcher = connection.playStream(st, { seek: 0, volume: 2 });
                     dispatcher.on('end', function() {
                         console.log('end in promise');
                         toNextSong();
+                    });
+                     dispatcher.on('error', function(err) {
+                        console.log("dispatcher on error");
+                        console.log(err);
+                    });
+                    dispatcher.on('speaking', function(value) {
+                        console.log("dispatcher on speaking");
+                        console.log(value);
+                    });
+                    dispatcher.on('debug', function(information) {
+                        console.log("dispatcher on debug");
+                        console.log(information);
                     });
                     dispatcherCallback(dispatcher);
                 });

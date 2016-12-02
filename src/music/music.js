@@ -55,6 +55,8 @@ function runPlay() {
         console.log('in play callback');
         if (pl.next()) {
             runPlay();
+        } else {
+            mp.turnOff();
         }
     });
 }
