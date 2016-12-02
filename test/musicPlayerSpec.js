@@ -12,12 +12,9 @@ describe ('Music Player', function () {
   before(function() {
     musicPlayer = new MusicPlayer();
   });
-  it('should manage the playlist', function (done) {
-    musicPlayer.addToPlaylist('https://www.youtube.com/watch?v=J56VVtlZCGE');
-    let playlist = musicPlayer.getPlaylist();
-    playlist.should.exist;
-    playlist.length.should.equal(1);
-    playlist[0].url.should.equal('https://www.youtube.com/watch?v=J56VVtlZCGE');
+  it('should play a file', function (done) {
+    let i = 2;
+    i.should.equal(3);
     done();
   });  
   

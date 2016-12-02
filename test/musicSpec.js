@@ -5,6 +5,7 @@ const sinon = require("sinon");
 const ytdl = require('ytdl-core');
 
 import MusicPlayer from "../src/music/musicPlayer.js";
+import Playlist from "../src/music/playlist.js";
 import * as music from "../src/music/music.js";
 import * as bot from "../src/bot/reply.js";
 import * as config from "../src/config/config.js";
@@ -38,18 +39,19 @@ describe('Music Manager', function () {
                 }
             }                        
         };
-        sinon.stub(MusicPlayer.prototype);
+        sinon.stub(MusicPlayer.prototype);        
         MusicPlayer.prototype.connection = {};
-        MusicPlayer.prototype.getPlaylist = function() {
-            return [{index:0, url:"foo"}, {index:0, url:"bar"}];
-        };       
         MusicPlayer.prototype.setConnection = function(connection) {
             MusicPlayer.prototype.connection = connection;
         };
     });    
     it('should play the music', function (done) {
+        sinon.stub(Playlist.prototype, 'current').returns("url");
+        sinon.stub(Playlist.prototype, 'next').returns(undefined);
         music.manageCommands(message);
         MusicPlayer.prototype.play.calledOnce.should.equal(true);
+        Playlist.prototype.current.restore();
+        Playlist.prototype.next.restore();
         done();
     });
     it('should pause the music', function (done) {
@@ -81,8 +83,10 @@ describe('Music Manager', function () {
     });
     it('should add to playlist', function (done) {        
         message.content = "!add";
+        sinon.stub(Playlist.prototype, 'add');
         music.manageCommands(message);        
-        MusicPlayer.prototype.addToPlaylist.calledOnce.should.equal(true);
+        Playlist.prototype.add.calledOnce.should.equal(true);
+        Playlist.prototype.add.restore();
         done();
     });
 });
