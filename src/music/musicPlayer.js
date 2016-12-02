@@ -27,7 +27,7 @@ export default class MusicPlayer {
                 console.log('end in promise');
                 toNextSong();
             });
-            this.setDispatcher(toto);            
+            this.setDispatcher(dispatcher);            
             callback(dispatcher);
         });
     }
