@@ -27,20 +27,20 @@ describe ('playlist class helper', function () {
     pl.getPlaylist().length.should.equal(0);
     done();
   });
-  it('should remove the played url', function(done) {
+  it('should remove the played url and tell if there is a next song', function(done) {
     pl.add("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.add("https://www.youtube.com/watch?v=0L_iOnLNt9N");
-    pl.next();
+    pl.hasNext().should.be.true();;
     pl.getPlaylist()[0].url.should.equal("https://www.youtube.com/watch?v=0L_iOnLNt9N");
     pl.getPlaylist().length.should.equal(1);
     done();
   });
-  it('should give the music to play', function(done) {
+  it('should return undefined if there is no next song', function(done) {
     pl.add("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.add("https://www.youtube.com/watch?v=0L_iOnLNt9N");
     pl.current().should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
-    pl.next();
-    pl.next();
+    pl.hasNext();
+    pl.hasNext();
     (pl.current() === undefined).should.be.true();
     done();
   });

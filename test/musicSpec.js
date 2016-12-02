@@ -48,11 +48,11 @@ describe('Music Manager', function () {
         sinon.stub(MusicPlayer.prototype, 'play');
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
         sinon.stub(Playlist.prototype, 'current').returns("url");
-        sinon.stub(Playlist.prototype, 'next').returns(undefined);
+        sinon.stub(Playlist.prototype, 'hasNext').returns(false);
         music.manageCommands(message);
         MusicPlayer.prototype.play.calledOnce.should.equal(true);
         Playlist.prototype.current.restore();
-        Playlist.prototype.next.restore();
+        Playlist.prototype.hasNext.restore();
         MusicPlayer.prototype.play.restore();
         MusicPlayer.prototype.isPlaying.restore();
         done();
@@ -61,9 +61,9 @@ describe('Music Manager', function () {
         sinon.stub(MusicPlayer.prototype, 'play').yields();
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
         sinon.stub(Playlist.prototype, 'current').returns("url");        
-        let nextStub = sinon.stub(Playlist.prototype, 'next');
-        nextStub.onCall(0).returns("exist");
-        nextStub.onCall(1).returns(undefined);
+        let nextStub = sinon.stub(Playlist.prototype, 'hasNext');
+        nextStub.onCall(0).returns(true);
+        nextStub.onCall(1).returns(false);
         music.manageCommands(message);
         MusicPlayer.prototype.play.calledTwice.should.equal(true);
         MusicPlayer.prototype.play.restore();

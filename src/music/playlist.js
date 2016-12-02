@@ -18,8 +18,11 @@ export default class Playlist {
       }
     }
 
-    next() {
-      return this.playlist.pop();
+    hasNext() {
+      this.playlist.pop();
+      let hasNext = this.playlist.length > 0 ? true : false;
+      console.log(`is there a next song ? ${hasNext}`)
+      return hasNext;
     }
 
     current() {

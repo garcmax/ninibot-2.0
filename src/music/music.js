@@ -53,12 +53,13 @@ function addToPlaylist(url) {
 function runPlay() {
     mp.play(pl.current(), function() {
         console.log('in play callback');
-        if (pl.next()) {
+        if (pl.hasNext()) {
+            console.log(`next song is : ${pl.current()}`);
             runPlay();
         } else {
             console.log('stop playing');
             mp.turnOff();
-            console.log(mp.isPlaying);
+            console.log(mp.isPlaying());
         }
     });
 }

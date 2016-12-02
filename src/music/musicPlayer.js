@@ -41,10 +41,6 @@ export default class MusicPlayer {
                         console.log("dispatcher on error");
                         console.log(err);
                     });
-                    dispatcher.on('speaking', function(value) {
-                        console.log("dispatcher on speaking");
-                        console.log(value);
-                    });
                     dispatcher.on('debug', function(information) {
                         console.log("dispatcher on debug");
                         console.log(information);
