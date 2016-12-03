@@ -30,7 +30,7 @@ export function manageCommands(message, bot) {
         } else if (command === '!pl') {
             displayPlaylist(message);
         }  else if (command === '!add') {            
-            addToPlaylist(message.content.slice(5));
+            addToPlaylist(message.content.slice(5), message.author.username);
         }
     }
 }
@@ -40,14 +40,15 @@ function displayPlaylist(message) {
     let answer = "```";
     for (let i = 0; i < list.length; i++) {
         answer += `
-${list[i].url}`;
+${list[i].author} has requested : ${list[i].title}`;
     }
     answer += "```";
     bot.replyInChannel(answer, message);
 }
 
-function addToPlaylist(url) {
-    pl.add(url);
+function addToPlaylist(url, author) {
+    let urlArray = url.split("=");
+    pl.add(url, urlArray[1], author);
 }
 
 function runPlay() {

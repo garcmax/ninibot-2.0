@@ -1,13 +1,21 @@
 'use strict';
 
+import * as mm from "../commands/multimedia.js";
+
 export default class Playlist {
     constructor() {
       this.playlist = [];
     }
 
-    add(url) {
-      let playlistObject = {"url" : url};
-      this.playlist.unshift(playlistObject);
+    add(url, id, author) {
+      let title = mm.getVideoInfo(id, function(error, title) {
+        if (error) {
+          //error case
+        } else {
+          let playlistObject = {"url" : url, "title" : title, "author": author};
+          this.playlist.unshift(playlistObject);
+        }
+      }.bind(this));      
     }
 
     remove(url) {

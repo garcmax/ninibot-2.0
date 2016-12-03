@@ -62,7 +62,7 @@ describe ('imgur search', function () {
         content: "!imgur -help"
     }
     mm.imgur(message);
-    bot.replyInPM.calledWith(config.strings[lang.countryCode].imgurHelp, message).should.be.equal(true);
+    bot.replyInPM.calledWith(config.strings[lang.countryCode].imgurHelp, message).should.be.true()
     done();
   });
   it('should get an image', function (done) {
@@ -76,8 +76,8 @@ describe ('imgur search', function () {
         }
     };
     mm.imgur(message);    
-    request.get.called.should.be.equal(true);
-    request.get.calledWith(options).should.be.equal(true);
+    request.get.called.should.be.true()
+    request.get.calledWith(options).should.be.true()
     done();
   });
 });
@@ -112,26 +112,26 @@ describe('treat imgur response', function () {
     });
     it ('should reply that something went wrong with the API call', function () {
         mm.imgurCallback("error", response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].internetKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].internetKO, "message").should.be.true()
     });
     it ('should reply with the received image', function () {    
         mm.imgurCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(body.data[0].link, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(body.data[0].link, "message").should.be.true()
     });
     it ('should reply with the no data error message', function () {
         let bodyTmp = {};
         response.body =  JSON.stringify(bodyTmp);   
         mm.imgurCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurSearchKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurSearchKO, "message").should.be.true()
     });
     it ('should reply with the bad status error message', function () {        
         response.statusCode = 401;  
         mm.imgurCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurAPIKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].imgurAPIKO, "message").should.be.true()
     });
 });
 
@@ -169,30 +169,30 @@ describe('treat youtube response', function () {
     });
     it ('should reply that something went wrong with the API call', function () {
         mm.ytCallback("error", response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].internetKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].internetKO, "message").should.be.true()
     });
     it ('should reply with the received image', function () {    
         mm.ytCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(`${config.url.youtubeVideo}${body.items[0].id.videoId}`, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(`${config.url.youtubeVideo}${body.items[0].id.videoId}`, "message").should.be.true()
     });
     it ('should reply with the no data error message', function () {
         let bodyTmp = {};
         response.body =  JSON.stringify(bodyTmp);   
         mm.ytCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].ytSearchKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].ytSearchKO, "message").should.be.true()
     });
     it ('should reply with the bad status error message', function () {        
         response.statusCode = 401;  
         mm.ytCallback(undefined, response, "message");
-        bot.replyWithAuthor.calledOnce.should.be.equal(true);
-        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].ytAPIKO, "message").should.be.equal(true);
+        bot.replyWithAuthor.calledOnce.should.be.true()
+        bot.replyWithAuthor.calledWith(config.strings[lang.countryCode].ytAPIKO, "message").should.be.true()
     });
 });
 
-describe ('youtube search', function () {
+describe ('youtube search from query', function () {
   beforeEach(function() {
     sinon.stub(bot, 'replyInPM');
     sinon.stub(request, 'get');
@@ -209,8 +209,33 @@ describe ('youtube search', function () {
         url: "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=relevance&type=video&q=" + "rhapsody" + "&key=" + config.credentials.googleToken
     };
     mm.youtube(message);
-    request.get.called.should.be.equal(true);
-    request.get.calledWith(options).should.be.equal(true);
+    request.get.called.should.be.true()
+    request.get.calledWith(options).should.be.true()
     done();
   });
+});
+
+describe('youtube search from video id', function () {
+  var response = { 
+    body:'{"items": [{"snippet": {"title" : "youtube video title"}}]}',
+    statusCode: 200
+  }
+  beforeEach(function() {
+    sinon.stub(request, 'get').yields(undefined, response);
+  });
+  afterEach(function() {
+    request.get.restore();
+  });
+  it ('should retrieve info', function(done) {
+    var callback = sinon.spy();
+    let id = "MZuSaudKc68";
+    let options = {
+        url: "https://content.googleapis.com/youtube/v3/videos?id=" + "MZuSaudKc68" + "&part=snippet&key=" + config.credentials.googleToken        
+    };
+    mm.getVideoInfo(id, callback);
+    request.get.called.should.be.true()
+    request.get.calledWith(options).should.be.true()
+    callback.calledWith(undefined, "youtube video title").should.be.true();
+    done();
+  })
 });

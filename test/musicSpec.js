@@ -30,7 +30,9 @@ describe('Music Manager', function () {
         }
         message = {
             content: "!play",
-            author: "the bot",
+            author: {
+                username: "me"
+            },
             client: {
                 channels : {
                     filter: function() {
@@ -44,6 +46,12 @@ describe('Music Manager', function () {
             MusicPlayer.prototype.connection = connection;
         };
     });    
+    beforeEach(function() {
+        sinon.stub(bot, 'replyInChannel');
+    });
+    afterEach(function() {
+        bot.replyInChannel.restore();
+    })
     it('should play one song', function (done) {
         sinon.stub(MusicPlayer.prototype, 'play');
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
@@ -109,18 +117,17 @@ describe('Music Manager', function () {
         done();
     });
     it('should display the playlist', function (done) {
-        sinon.stub(bot, 'replyInChannel');
         message.content = "!pl";       
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.equal(true);
-        bot.replyInChannel.restore();
         done();
     });
     it('should add to playlist', function (done) {        
-        message.content = "!add";
+        message.content = "!add https://www.youtube.com/watch?v=MZuSaudKc68";
         sinon.stub(Playlist.prototype, 'add');
         music.manageCommands(message);        
         Playlist.prototype.add.calledOnce.should.equal(true);
+        Playlist.prototype.add.calledWith("https://www.youtube.com/watch?v=MZuSaudKc68", "MZuSaudKc68", "me").should.be.true();
         Playlist.prototype.add.restore();
         done();
     });
