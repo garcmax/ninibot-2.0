@@ -36,12 +36,17 @@ export default class Playlist {
     current() {
       let length = this.playlist.length;
       if (length > 0) {
-        return this.playlist[this.playlist.length - 1].url;
+        return this.playlist[this.playlist.length - 1];
       }
-      return undefined;
+      return undefined;      
+    }
+
+    toto() {
+      return {};
     }
 
     getPlaylist() {
       return this.playlist;
     }
+
 }

@@ -55,11 +55,11 @@ describe('Music Manager', function () {
     it('should play one song', function (done) {
         sinon.stub(MusicPlayer.prototype, 'play');
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
-        sinon.stub(Playlist.prototype, 'current').returns("url");
+        sinon.stub(Playlist.prototype, 'current').returns({url: "url", title: "title", author: "me"});
         sinon.stub(Playlist.prototype, 'hasNext').returns(false);
         sinon.stub(Playlist.prototype, 'getPlaylist').returns([1,2]);
         music.manageCommands(message);
-        MusicPlayer.prototype.play.calledOnce.should.equal(true);
+        MusicPlayer.prototype.play.calledOnce.should.equal(true);        
         Playlist.prototype.current.restore();
         Playlist.prototype.hasNext.restore();
         Playlist.prototype.getPlaylist.restore();
@@ -70,13 +70,13 @@ describe('Music Manager', function () {
     it('should play two songs', function (done) {
         sinon.stub(MusicPlayer.prototype, 'play').yields();
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
-        sinon.stub(Playlist.prototype, 'current').returns("url");
+        sinon.stub(Playlist.prototype, 'current').returns({url: "url", title: "title", author: "me"});
         sinon.stub(Playlist.prototype, 'getPlaylist').returns([1,2]);        
         let nextStub = sinon.stub(Playlist.prototype, 'hasNext');
         nextStub.onCall(0).returns(true);
         nextStub.onCall(1).returns(false);
         music.manageCommands(message);
-        MusicPlayer.prototype.play.calledTwice.should.equal(true);
+        MusicPlayer.prototype.play.calledTwice.should.equal(true);        
         MusicPlayer.prototype.play.restore();
         MusicPlayer.prototype.isPlaying.restore();
         Playlist.prototype.current.restore();
@@ -129,6 +129,23 @@ describe('Music Manager', function () {
         Playlist.prototype.add.calledOnce.should.equal(true);
         Playlist.prototype.add.calledWith("https://www.youtube.com/watch?v=MZuSaudKc68", "MZuSaudKc68", "me").should.be.true();
         Playlist.prototype.add.restore();
+        done();
+    });
+    it ('should give the current played song', function (done) {
+        message.content = "!current";       
+        sinon.stub(Playlist.prototype, 'current').returns({url: "url", title: "title", author: "me"});
+        music.manageCommands(message);        
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith("currently playing : title curated by me").should.equal(true);
+        Playlist.prototype.current.calledOnce.should.be.true();
+        Playlist.prototype.current.restore();
+        done();
+    });
+    it ('should skip the current song', function (done) {
+        message.content = "!skip";
+        sinon.stub(MusicPlayer.prototype, 'skip');
+        music.manageCommands(message);
+        MusicPlayer.prototype.skip.calledOnce.should.be.true();
         done();
     });
 });

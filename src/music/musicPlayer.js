@@ -53,6 +53,10 @@ export default class MusicPlayer {
         this.dispatcher.resume();
     }
 
+    skip() {
+        this.dispatcher.end();
+    }
+
     isPlaying() {
         return this.playing;
     }

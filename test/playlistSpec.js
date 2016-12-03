@@ -16,7 +16,7 @@ describe ('playlist class helper', function () {
   });
   it('should add an url to playlist', function (done) {        
     let url = "https://www.youtube.com/watch?v=MZuSaudKc68";
-    pl.add(url, "id", "me");    
+    pl.add(url, "id", "me");
     mm.getVideoInfo.calledOnce.should.be.true();
     pl.getPlaylist()[0].url.should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.getPlaylist()[0].title.should.equal("title");
@@ -25,9 +25,9 @@ describe ('playlist class helper', function () {
   });  
   it('should delete an url from playlist', function (done) {
     let url = "https://www.youtube.com/watch?v=MZuSaudKc68";
-    pl.add(url, "id");
+    pl.add(url);
     pl.getPlaylist().length.should.equal(1);
-    pl.remove(url, "id");
+    pl.remove(url);
     pl.getPlaylist().length.should.equal(0);
     done();
   });
@@ -42,7 +42,7 @@ describe ('playlist class helper', function () {
   it('should return undefined if there is no next song', function(done) {
     pl.add("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.add("https://www.youtube.com/watch?v=0L_iOnLNt9N");
-    pl.current().should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
+    pl.current().url.should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.hasNext();
     pl.hasNext();
     (pl.current() === undefined).should.be.true();

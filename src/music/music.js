@@ -29,8 +29,12 @@ export function manageCommands(message, bot) {
             mp.resume();
         } else if (command === '!pl') {
             displayPlaylist(message);
-        }  else if (command === '!add') {            
+        } else if (command === '!add') {            
             addToPlaylist(message.content.slice(5), message.author.username);
+        } else if (command === '!current') {            
+            getCurrent(message);
+        } else if (command === '!skip') {            
+            mp.skip();
         }
     }
 }
@@ -38,7 +42,7 @@ export function manageCommands(message, bot) {
 function displayPlaylist(message) {
     let list = pl.getPlaylist(); 
     let answer = "```";
-    for (let i = 0; i < list.length; i++) {
+    for (let i = list.length - 1; i >= 0; i--) {
         answer += `
 ${list[i].author} has requested : ${list[i].title}`;
     }
@@ -52,10 +56,10 @@ function addToPlaylist(url, author) {
 }
 
 function runPlay() {
-    mp.play(pl.current(), function() {
+    mp.play(pl.current().url, function() {
         console.log('in play callback');
         if (pl.hasNext()) {
-            console.log(`next song is : ${pl.current()}`);
+            console.log(`next song is : ${pl.current().url}`);
             runPlay();
         } else {
             console.log('stop playing');
@@ -68,4 +72,9 @@ function runPlay() {
 function isMusicChannel(value) {
     console.log(`type = ${value.type} && name = ${value.name}`)
     return value.type === 'voice' && value.name === 'Music';
+}
+
+function getCurrent(message) {
+    let current = pl.current();
+    bot.replyInChannel(`currently playing : ${current.title} curated by ${current.author}`, message);
 }
