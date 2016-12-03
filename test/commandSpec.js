@@ -5,6 +5,7 @@ const sinon = require("sinon");
 import * as ping from "../src/commands/ping.js";
 import * as mm from "../src/commands/multimedia.js";
 import * as lang from "../src/commands/lang.js";
+import * as man from "../src/commands/man.js";
 import * as orwell from "../src/bot/censorship.js";
 import commandDispatcher from "../src/commands/commandDispatcher.js";
 
@@ -25,6 +26,7 @@ describe ('commands call', function () {
     sinon.stub(lang, "change");
     sinon.stub(orwell, "addCensoredWord");
     sinon.stub(orwell, "displayCensorList");
+    sinon.stub(man, "display");
   });
   afterEach(function() {
     ping.pong.restore();
@@ -33,6 +35,7 @@ describe ('commands call', function () {
     lang.change.restore();
     orwell.addCensoredWord.restore();
     orwell.displayCensorList.restore();
+    man.display.restore();
   });
   it('should execute ping command', function (done) {
     commandDispatcher(message);
@@ -67,6 +70,12 @@ describe ('commands call', function () {
     message.content ="!orwell";
     commandDispatcher(message);
     orwell.displayCensorList.calledOnce.should.equal(true);
+    done();
+  });
+  it('should execute man command', function (done) {
+    message.content ="!man";
+    commandDispatcher(message);
+    man.display.calledOnce.should.equal(true);
     done();
   });
 });

@@ -1,5 +1,6 @@
 {
     "en" : {
+        "man" : "```\n!ping : will respond with a pong, the current language and the current running version. Useful for knowing if ninibot is still up and running.\n!lang <language> : will change the actual language of ninibot\n!yt <query>: will return a youtube video matching the query.\n!imgur <query> : will return the top image on imgur matching the query. !imgur -help for more options\n!roll [2-9]d(2/4/6/8/10/12/20/100) will throw a dice of the <option> number, can be chained\n\n\nmusic : all the following commands will only work on music channel\n!play : if ninibot isn't connected to the music voice channel it will, if ninibot is connected it will start streaming\n!add <youtube url> : will add to the playlist the video\n!pause : will pause the stream\n!resume : will resume the stream\n!skip : will skip the current song\n!current : will display the current song\n!pl : will display the current playlist```",
         "ping" : "Pong ! I'm currently speaking english and in v",
         "langOK": "I'm speaking english ! God save the queen :flag_gb: or are we the country of the brave ? :flag_us:",
         "langKO" : "I'm not ready to talk this language yet.",
@@ -15,9 +16,10 @@
         "addCensoredWordOK" : "ok",
         "displayListPart01" : "Those words : ",
         "displayListPart02" : "are replaces by those Shagi's compliant ones : ",
-        "badPermission" : "You do not have this kind of privilege..."
+        "badPermission" : "You do not have this kind of privilege..."        
     },
     "fr" : {
+        "man" : "```\n!ping : répond avec un pong, la langue et la version courant de ninibot. Utile pour savoir si le bot fonctionne toujours.\n!lang <langage> : change la langue de ninibot\n!yt <recherche>: retourne la vidéo youtube trouvée à l'aide de la recherche.\n!imgur <recherche> : retourne la première image de la recherche imgur. !imgur -help pour plus d'options\n!roll [2-9]d(2/4/6/8/10/12/20/100) jette les dés du nombre en paramètre, peut s'enchaîner\n\n\nmusic : Les commandes suivantes ne fonctionnent que sur le canal music\n!play : si ninibot n'est pas connecté au canal vocal il s'y connectera sinon il jouera la liste de lecture\n!add <url youtube> : ajoute la video à la liste de lecture\n!pause : pause le ruissellement\n!resume : reprend le ruissellement\n!skip : passe à la chanson suivante\n!current : affiche la chanson ruisselé\n!pl : affiche la liste de lecture```",
         "ping" : "Pong ! Je m'exprime en français et suis en v",
         "langOK": "Je parle français ! Nos ancêtres les gaulix. :flag_fr:",
         "langKO" : "Je ne connais pas encore cette langue.",

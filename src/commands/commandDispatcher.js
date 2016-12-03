@@ -3,6 +3,7 @@
 import * as ping from "./ping.js";
 import * as mm from "./multimedia.js";
 import * as lang from "./lang.js";
+import * as man from "./man.js";
 import * as orwell from "../bot/censorship.js";
 
 /**
@@ -30,7 +31,9 @@ function commandDispatcher(message) {
             orwell.addCensoredWord(message);
         } else if (command === '!orwell') {
             orwell.displayCensorList(message);
-        } 
+        } else if (command === '!man') {
+            man.display(message);
+        }
 }
 
 
