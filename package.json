@@ -1,10 +1,6 @@
 {
   "name": "ninibot-2.0",
-<<<<<<< HEAD
-  "version": "0.2.0",
-=======
   "version": "0.3.0",
->>>>>>> music
   "description": "A multi-purpose discord bot",
   "main": "ninibot.js",
   "scripts": {
