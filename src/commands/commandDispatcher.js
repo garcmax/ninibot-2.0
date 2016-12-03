@@ -4,6 +4,7 @@ import * as ping from "./ping.js";
 import * as mm from "./multimedia.js";
 import * as dice from "./dice.js";
 import * as lang from "./lang.js";
+import * as man from "./man.js";
 import * as orwell from "../bot/censorship.js";
 
 /**
@@ -33,7 +34,11 @@ function commandDispatcher(message) {
             orwell.displayCensorList(message);
         } else if (command === '!roll') {
             dice.rolled(message);
+        } else if (command === '!man') {
+            man.display(message);
         }
 }
+
+
 
 export default commandDispatcher;

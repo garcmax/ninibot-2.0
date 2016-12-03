@@ -1,12 +1,14 @@
 'use strict';
 import * as config from "../config/config.js";
 
+const musicConnection = new config.MusicConnection();
+
 /**
  * login with the discord token
  */
 export function login(bot) {
-    bot.login(config.credentials.discordToken).then(message => {
-        console.log(message);
+    bot.login(config.credentials.discordToken).then(message => {        
+        console.log(`login token : ${message}`);
     });
 }
 

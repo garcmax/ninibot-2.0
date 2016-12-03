@@ -52,7 +52,7 @@ describe('add words to censor list', function () {
             guild: { owner: "member" }
         }
     });
-    beforeEach(function () {        
+    beforeEach(function () {
         sinon.stub(bot, 'replyInPM');
         sinon.stub(bot, 'replyInChannel');
         sinon.stub(config, 'loadCensored');
@@ -62,7 +62,7 @@ describe('add words to censor list', function () {
         bot.replyInPM.restore();
         bot.replyInChannel.restore();
         config.loadCensored.restore();
-    });    
+    });
     it('should add a word to censored strings', function (done) {
         sinon.stub(orwell, 'writeCensoredWord').yields(undefined);
         orwell.addCensoredWord(message);
@@ -98,7 +98,7 @@ describe('display the censor list', function () {
     afterEach(function () {
         bot.replyInChannel.restore();
     });
-    it('should display the list', function (done) {        
+    it('should display the list', function (done) {
         let message = {
             content: '!orwell'
         }

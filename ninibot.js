@@ -4,6 +4,7 @@ import * as signIn from "./src/login/login.js";
 import commandDispatcher from "./src/commands/commandDispatcher.js";
 import * as orwell from "./src/bot/censorship.js";
 import * as config from "./src/config/config.js";
+import * as music from "./src/music/music.js";
 
 // import the discord.js module
 const Discord = require('discord.js');
@@ -25,10 +26,19 @@ signIn.login(bot);
 
 bot.on('message', message => {
   if (message.author != bot.user) {
-    if (orwell.censor(message) == 1) {
-      commandDispatcher(message, bot.user);
+    if (message.channel.name === 'music') {
+      console.log(`ninibot.js : ${message.content}`);
+      music.manageCommands(message, bot);
+    } else if (orwell.censor(message) == 1) {
+      commandDispatcher(message);
     }
   }
+});
+
+bot.on('disconnect', function(error) {
+    if (error)
+      console.log(error);
+    console.log("disconnect");
 });
 
 bot.on('error', error => {

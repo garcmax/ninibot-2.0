@@ -6,6 +6,7 @@ import * as ping from "../src/commands/ping.js";
 import * as mm from "../src/commands/multimedia.js";
 import * as lang from "../src/commands/lang.js";
 import * as dice from "../src/commands/dice.js";
+import * as man from "../src/commands/man.js";
 import * as orwell from "../src/bot/censorship.js";
 import commandDispatcher from "../src/commands/commandDispatcher.js";
 
@@ -19,8 +20,25 @@ describe ('commands call', function () {
       author: "the bot"
     };
   });
-  it('should execute ping command', function (done) {
+  beforeEach(function() {
     sinon.stub(ping, "pong");
+    sinon.stub(mm, "imgur");
+    sinon.stub(mm, "youtube");
+    sinon.stub(lang, "change");
+    sinon.stub(orwell, "addCensoredWord");
+    sinon.stub(orwell, "displayCensorList");
+    sinon.stub(man, "display");
+  });
+  afterEach(function() {
+    ping.pong.restore();
+    mm.imgur.restore();
+    mm.youtube.restore();
+    lang.change.restore();
+    orwell.addCensoredWord.restore();
+    orwell.displayCensorList.restore();
+    man.display.restore();
+  });
+  it('should execute ping command', function (done) {
     commandDispatcher(message);
     ping.pong.calledOnce.should.equal(true);
     ping.pong.restore();
@@ -72,6 +90,12 @@ describe ('commands call', function () {
     commandDispatcher(message);
     dice.rolled.calledOnce.should.equal(true);
     dice.rolled.restore();
+    done();
+  });
+  it('should execute man command', function (done) {
+    message.content ="!man";
+    commandDispatcher(message);
+    man.display.calledOnce.should.equal(true);
     done();
   });
 });
