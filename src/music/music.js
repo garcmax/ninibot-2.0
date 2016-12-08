@@ -88,5 +88,9 @@ function isMusicChannel(value) {
 
 function getCurrent(message) {
     let current = pl.current();
-    bot.replyInChannel(`${config.strings[lang.countryCode].currentlyPlaying}${current.title} ${config.strings[lang.countryCode].curatedBy}${current.author}`, message);
+    if (current) {
+        bot.replyInChannel(`${config.strings[lang.countryCode].currentlyPlaying}${current.title} ${config.strings[lang.countryCode].curatedBy}${current.author}`, message);
+    } else {
+        bot.replyInChannel(config.strings[lang.countryCode].currentlyPlayingKO, message);
+    }
 }

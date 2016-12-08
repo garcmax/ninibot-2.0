@@ -166,6 +166,16 @@ describe('Music Manager', function () {
         Playlist.prototype.current.restore();
         done();
     });
+    it ('should warn that there is no song played', function (done) {
+        message.content = "!current";       
+        sinon.stub(Playlist.prototype, 'current').returns(undefined);
+        music.manageCommands(message);        
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].currentlyPlayingKO).should.equal(true);
+        Playlist.prototype.current.calledOnce.should.be.true();
+        Playlist.prototype.current.restore();
+        done();
+    });
     it ('should skip the current song', function (done) {
         message.content = "!skip";
         sinon.stub(MusicPlayer.prototype, 'skip');
