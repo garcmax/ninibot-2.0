@@ -7,13 +7,15 @@ export default class Playlist {
       this.playlist = [];
     }
 
-    add(url, id, author) {
+    add(url, id, author, callback) {
       let title = mm.getVideoInfo(id, function(error, title) {
         if (error) {
-          //error case
+          console.log(error);
+          callback(1);
         } else {
           let playlistObject = {"url" : url, "title" : title, "author": author};
           this.playlist.unshift(playlistObject);
+          callback(playlistObject.title);
         }
       }.bind(this));      
     }

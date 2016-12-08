@@ -30,7 +30,7 @@ export function manageCommands(message, bot) {
         } else if (command === '!pl') {
             displayPlaylist(message);
         } else if (command === '!add') {            
-            addToPlaylist(message.content.slice(5), message.author.username);
+            addToPlaylist(message);
         } else if (command === '!current') {            
             getCurrent(message);
         } else if (command === '!skip') {            
@@ -40,7 +40,11 @@ export function manageCommands(message, bot) {
 }
 
 function displayPlaylist(message) {
-    let list = pl.getPlaylist(); 
+    let list = pl.getPlaylist();
+    if (list.length == 0) {
+        bot.replyInChannel("The playlist is empty", message);   
+        return 0;     
+    } 
     let answer = "```";
     for (let i = list.length - 1; i >= 0; i--) {
         answer += `
@@ -50,9 +54,17 @@ ${list[i].author} has requested : ${list[i].title}`;
     bot.replyInChannel(answer, message);
 }
 
-function addToPlaylist(url, author) {
+function addToPlaylist(message) {
+    let url = message.content.slice(5);
+    let author = message.author.username;
     let urlArray = url.split("=");
-    pl.add(url, urlArray[1], author);
+    pl.add(url, urlArray[1], author, function(data) {
+        if (data == 1) {
+            bot.replyInChannel(`Something went wrong with youtube, I will not add this song.`, message);
+        } else {
+            bot.replyInChannel(`${data} added to the playlist.`, message);
+        }
+    });
 }
 
 function runPlay() {
@@ -64,7 +76,6 @@ function runPlay() {
         } else {
             console.log('stop playing');
             mp.turnOff();
-            console.log(mp.isPlaying());
         }
     });
 }

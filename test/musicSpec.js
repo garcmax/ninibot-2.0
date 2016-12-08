@@ -53,18 +53,21 @@ describe('Music Manager', function () {
         bot.replyInChannel.restore();
     })
     it('should play one song', function (done) {
-        sinon.stub(MusicPlayer.prototype, 'play');
+        sinon.stub(MusicPlayer.prototype, 'play').yields();
+        sinon.stub(MusicPlayer.prototype, 'turnOff');
         sinon.stub(MusicPlayer.prototype, 'isPlaying').returns(false);
         sinon.stub(Playlist.prototype, 'current').returns({url: "url", title: "title", author: "me"});
         sinon.stub(Playlist.prototype, 'hasNext').returns(false);
         sinon.stub(Playlist.prototype, 'getPlaylist').returns([1,2]);
         music.manageCommands(message);
         MusicPlayer.prototype.play.calledOnce.should.equal(true);        
+        MusicPlayer.prototype.turnOff.calledOnce.should.equal(true);
         Playlist.prototype.current.restore();
         Playlist.prototype.hasNext.restore();
         Playlist.prototype.getPlaylist.restore();
         MusicPlayer.prototype.play.restore();
         MusicPlayer.prototype.isPlaying.restore();
+        MusicPlayer.prototype.turnOff.restore();
         done();
     });
     it('should play two songs', function (done) {
@@ -117,17 +120,39 @@ describe('Music Manager', function () {
         done();
     });
     it('should display the playlist', function (done) {
+        sinon.stub(Playlist.prototype, 'getPlaylist').returns([1,2]);
         message.content = "!pl";       
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith("The playlist is empty").should.equal(false);     
+        Playlist.prototype.getPlaylist.restore();
+        done();
+    });
+    it('should display that there is no song in playlist', function (done) {
+        sinon.stub(Playlist.prototype, 'getPlaylist').returns([]);        
+        message.content = "!pl";       
+        music.manageCommands(message);        
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith("The playlist is empty").should.equal(true);
+        Playlist.prototype.getPlaylist.restore();
         done();
     });
     it('should add to playlist', function (done) {        
         message.content = "!add https://www.youtube.com/watch?v=MZuSaudKc68";
-        sinon.stub(Playlist.prototype, 'add');
+        sinon.stub(Playlist.prototype, 'add').yields("title");
         music.manageCommands(message);        
-        Playlist.prototype.add.calledOnce.should.equal(true);
-        Playlist.prototype.add.calledWith("https://www.youtube.com/watch?v=MZuSaudKc68", "MZuSaudKc68", "me").should.be.true();
+        bot.replyInChannel.calledWith("title added to the playlist.").should.be.true();
+        Playlist.prototype.add.calledOnce.should.equal(true);        
+        Playlist.prototype.add.restore();
+        done();
+    });
+    it('should not add to playlist', function (done) {        
+        message.content = "!add https://www.youtube.com/watch?v=MZuSaudKc68";
+        sinon.stub(Playlist.prototype, 'add').yields(1);
+        music.manageCommands(message);        
+        bot.replyInChannel.calledOnce.should.be.true();
+        bot.replyInChannel.calledWith("title added to the playlist.").should.be.false();
+        Playlist.prototype.add.calledOnce.should.equal(true);        
         Playlist.prototype.add.restore();
         done();
     });

@@ -133,7 +133,7 @@ export function getVideoInfo(id, callback) {
       if (response.statusCode === 200 && data) {
         callback(undefined, data.snippet.title)
       } else {
-        callback(undefined, undefined);
+        callback({error: "youtube error"}, undefined);
       }
     }
   });

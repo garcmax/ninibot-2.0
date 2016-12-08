@@ -46,15 +46,21 @@ export default class MusicPlayer {
 
 
     pause() {
-        this.dispatcher.pause();
+        if (this.dispatcher) {
+            this.dispatcher.pause();
+        }
     }
 
     resume() {
-        this.dispatcher.resume();
+        if (this.dispatcher) {
+            this.dispatcher.resume();
+        }
     }
 
     skip() {
-        this.dispatcher.end();
+        if (this.dispatcher) {
+            this.dispatcher.end();
+        }
     }
 
     isPlaying() {
