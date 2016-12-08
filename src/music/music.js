@@ -5,6 +5,7 @@ import Playlist from "./playlist.js";
 import * as config from "../config/config.js";
 import * as dispatcher from "../commands/commandDispatcher.js";
 import * as bot from "../bot/reply.js";
+const lang = new config.Language(); 
 
 var mp = new MusicPlayer();
 var pl = new Playlist();
@@ -42,13 +43,13 @@ export function manageCommands(message, bot) {
 function displayPlaylist(message) {
     let list = pl.getPlaylist();
     if (list.length == 0) {
-        bot.replyInChannel("The playlist is empty", message);   
+        bot.replyInChannel(config.strings[lang.countryCode].playlistEmpty, message);   
         return 0;     
     } 
     let answer = "```";
     for (let i = list.length - 1; i >= 0; i--) {
         answer += `
-${list[i].author} has requested : ${list[i].title}`;
+${list[i].author} ${config.strings[lang.countryCode].requested}${list[i].title}`;
     }
     answer += "```";
     bot.replyInChannel(answer, message);
@@ -60,9 +61,9 @@ function addToPlaylist(message) {
     let urlArray = url.split("=");
     pl.add(url, urlArray[1], author, function(data) {
         if (data == 1) {
-            bot.replyInChannel(`Something went wrong with youtube, I will not add this song.`, message);
+            bot.replyInChannel(config.strings[lang.countryCode].addKO, message);
         } else {
-            bot.replyInChannel(`${data} added to the playlist.`, message);
+            bot.replyInChannel(`${data} ${config.strings[lang.countryCode].addOK}`, message);
         }
     });
 }
@@ -87,5 +88,5 @@ function isMusicChannel(value) {
 
 function getCurrent(message) {
     let current = pl.current();
-    bot.replyInChannel(`currently playing : ${current.title} curated by ${current.author}`, message);
+    bot.replyInChannel(`${config.strings[lang.countryCode].currentlyPlaying}${current.title} ${config.strings[lang.countryCode].curatedBy}${current.author}`, message);
 }

@@ -124,7 +124,7 @@ describe('Music Manager', function () {
         message.content = "!pl";       
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.equal(true);
-        bot.replyInChannel.calledWith("The playlist is empty").should.equal(false);     
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].playlistEmpty).should.equal(false);     
         Playlist.prototype.getPlaylist.restore();
         done();
     });
@@ -133,7 +133,7 @@ describe('Music Manager', function () {
         message.content = "!pl";       
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.equal(true);
-        bot.replyInChannel.calledWith("The playlist is empty").should.equal(true);
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].playlistEmpty).should.equal(true);
         Playlist.prototype.getPlaylist.restore();
         done();
     });
@@ -141,7 +141,7 @@ describe('Music Manager', function () {
         message.content = "!add https://www.youtube.com/watch?v=MZuSaudKc68";
         sinon.stub(Playlist.prototype, 'add').yields("title");
         music.manageCommands(message);        
-        bot.replyInChannel.calledWith("title added to the playlist.").should.be.true();
+        bot.replyInChannel.calledWith(`title ${config.strings[lang.countryCode].addOK}`).should.be.true();
         Playlist.prototype.add.calledOnce.should.equal(true);        
         Playlist.prototype.add.restore();
         done();
@@ -151,7 +151,7 @@ describe('Music Manager', function () {
         sinon.stub(Playlist.prototype, 'add').yields(1);
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.be.true();
-        bot.replyInChannel.calledWith("title added to the playlist.").should.be.false();
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].addKO).should.be.true();
         Playlist.prototype.add.calledOnce.should.equal(true);        
         Playlist.prototype.add.restore();
         done();
@@ -161,7 +161,7 @@ describe('Music Manager', function () {
         sinon.stub(Playlist.prototype, 'current').returns({url: "url", title: "title", author: "me"});
         music.manageCommands(message);        
         bot.replyInChannel.calledOnce.should.equal(true);
-        bot.replyInChannel.calledWith("currently playing : title curated by me").should.equal(true);
+        bot.replyInChannel.calledWith(`${config.strings[lang.countryCode].currentlyPlaying}title ${config.strings[lang.countryCode].curatedBy}me`).should.equal(true);
         Playlist.prototype.current.calledOnce.should.be.true();
         Playlist.prototype.current.restore();
         done();

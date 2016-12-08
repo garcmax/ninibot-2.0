@@ -19,7 +19,13 @@
         "badPermission" : "You do not have this kind of privilege...",
         "diceOK" : "results",
         "diceKO" : "are you sure of your dices ?",
-        "from" : "from"
+        "from" : "from",
+        "playlistEmpty" : "The playlist is empty !",
+        "requested" : "has requested : ",
+        "addKO" : "Something went wrong with youtube, I will not add this song.",
+        "addOK" : "added to the playlist.",
+        "currentlyPlaying" : "Currently playing : ",
+        "curatedBy" : "curated by"
     },
     "fr" : {
         "man" : "```\n!ping : répond avec un pong, la langue et la version courant de ninibot. Utile pour savoir si le bot fonctionne toujours.\n!lang <langage> : change la langue de ninibot\n!yt <recherche>: retourne la vidéo youtube trouvée à l'aide de la recherche.\n!imgur <recherche> : retourne la première image de la recherche imgur. !imgur -help pour plus d'options\n!roll [2-9]d(2/4/6/8/10/12/20/100) jette les dés du nombre en paramètre, peut s'enchaîner\n\n\nmusic : Les commandes suivantes ne fonctionnent que sur le canal music\n!play : si ninibot n'est pas connecté au canal vocal il s'y connectera sinon il jouera la liste de lecture\n!add <url youtube> : ajoute la video à la liste de lecture\n!pause : pause le ruissellement\n!resume : reprend le ruissellement\n!skip : passe à la chanson suivante\n!current : affiche la chanson ruisselé\n!pl : affiche la liste de lecture```",
@@ -41,6 +47,12 @@
         "badPermission" : "Tu n'as pas les droits pour faire ceci...",
         "diceOK" : "résultats",
         "diceKO" : "es-tu sûr de tes dés ?",
-        "from" : "du"
+        "from" : "du",
+        "playlistEmpty" : "La liste de lecture est vide !",
+        "requested" : "a demandé : ",
+        "addKO" : "Quelque-chose s'est mal passé avec youtube. Je n'ajouterais pas cette chanson.",
+        "addOK" : "ajouté à la liste de lecture.",
+        "currentlyPlaying" : "En écoute maintenant : ",
+        "curatedBy" : "proposé par : "
     }
 }

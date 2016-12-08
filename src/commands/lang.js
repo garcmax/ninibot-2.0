@@ -9,7 +9,7 @@ export function change(message) {
     let cc = options[1];
     if (cc === lang.countryCode) {
         bot.replyInChannel(config.strings[cc].langAlreadySet, message);
-    } else if (config.strings[options[1]]) {
+    } else if (config.strings[cc]) {
         lang.countryCode = cc;
         bot.replyInChannel(config.strings[cc].langOK, message);
     } else {
