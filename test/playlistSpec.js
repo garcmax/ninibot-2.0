@@ -23,6 +23,13 @@ describe ('playlist class helper', function () {
     pl.getPlaylist()[0].author.should.equal("me");
     done();
   });  
+  /*it('should return an error when adding a bad url', function (done) {        
+    let url = "https://www.loltube.kek/watch?v=MZuSaudKc68";
+    pl.add(url, "id", "me");
+    mm.getVideoInfo.calledOnce.should.be.true();
+    pl.getPlaylist().length.should.equal(0);
+    done();
+  });*/
   it('should delete an url from playlist', function (done) {
     let url = "https://www.youtube.com/watch?v=MZuSaudKc68";
     pl.add(url);
