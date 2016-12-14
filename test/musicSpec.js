@@ -183,4 +183,26 @@ describe('Music Manager', function () {
         MusicPlayer.prototype.skip.calledOnce.should.be.true();
         done();
     });
+    it('should remove one song', function (done) {
+        sinon.stub(Playlist.prototype, 'remove').returns(0);
+        message.content = "!remove 1";
+        music.manageCommands(message);
+        Playlist.prototype.remove.calledOnce.should.equal(true);
+        Playlist.prototype.remove.calledWith(1).should.equal(true);
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].removeSongOK).should.equal(true);
+        Playlist.prototype.remove.restore();
+        done();
+    });
+    it('should not remove song', function (done) {
+        sinon.stub(Playlist.prototype, 'remove').returns(1);
+        message.content = "!remove 1";
+        music.manageCommands(message);
+        Playlist.prototype.remove.calledOnce.should.equal(true);
+        Playlist.prototype.remove.calledWith(1).should.equal(true);
+        bot.replyInChannel.calledOnce.should.equal(true);
+        bot.replyInChannel.calledWith(config.strings[lang.countryCode].removeSongKO).should.equal(true);
+        Playlist.prototype.remove.restore();
+        done();
+    });
 });

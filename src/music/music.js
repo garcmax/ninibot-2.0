@@ -36,7 +36,18 @@ export function manageCommands(message, bot) {
             getCurrent(message);
         } else if (command === '!skip') {            
             mp.skip();
+        } else if (command === '!remove') {            
+            removeFromPlaylist(message);
         }
+    }
+}
+
+function removeFromPlaylist(message) {
+    let index = parseInt(message.content.slice(8), 10);
+    if (pl.remove(index) == 0) {
+        bot.replyInChannel(config.strings[lang.countryCode].removeSongOK, message);
+    } else {
+        bot.replyInChannel(config.strings[lang.countryCode].removeSongKO, message);
     }
 }
 
@@ -49,7 +60,7 @@ function displayPlaylist(message) {
     let answer = "```";
     for (let i = list.length - 1; i >= 0; i--) {
         answer += `
-${list[i].author} ${config.strings[lang.countryCode].requested}${list[i].title}`;
+${list[i].index}. ${list[i].author} ${config.strings[lang.countryCode].requested}${list[i].title}`;
     }
     answer += "```";
     bot.replyInChannel(answer, message);

@@ -26,7 +26,9 @@
         "addOK" : "added to the playlist.",
         "currentlyPlayingKO" : "There is no song played at the moment, you should add one !",
         "currentlyPlaying" : "Currently playing : ",
-        "curatedBy" : "curated by : "
+        "curatedBy" : "curated by : ",
+        "removeSongKO" : "You give me a wrong index ? Wtf, like seriously, how is this even remotly difficult ?",
+        "removeSongOK" : "Song deleted !"
     },
     "fr" : {
         "man" : "```\n!ping : répond avec un pong, la langue et la version courant de ninibot. Utile pour savoir si le bot fonctionne toujours.\n!lang <langage> : change la langue de ninibot\n!yt <recherche>: retourne la vidéo youtube trouvée à l'aide de la recherche.\n!imgur <recherche> : retourne la première image de la recherche imgur. !imgur -help pour plus d'options\n!roll [2-9]d(2/4/6/8/10/12/20/100) jette les dés du nombre en paramètre, peut s'enchaîner\n\n\nmusic : Les commandes suivantes ne fonctionnent que sur le canal music\n!play : si ninibot n'est pas connecté au canal vocal il s'y connectera sinon il jouera la liste de lecture\n!add <url youtube> : ajoute la video à la liste de lecture\n!pause : pause le ruissellement\n!resume : reprend le ruissellement\n!skip : passe à la chanson suivante\n!current : affiche la chanson ruisselé\n!pl : affiche la liste de lecture```",
@@ -55,6 +57,8 @@
         "addOK" : "ajouté à la liste de lecture.",
         "currentlyPlayingKO" : "Pas de chanson en écoute actuellement, tu devrais en ajouter une !",
         "currentlyPlaying" : "En écoute maintenant : ",
-        "curatedBy" : "proposé par : "
+        "curatedBy" : "proposé par : ",
+        "removeSongKO" : "pourquoi me donner un faux index ? Franchement je le demande, pourquoi ?",
+        "removeSongOK" : "Chanson effacée !"
     }
 }

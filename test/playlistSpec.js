@@ -23,6 +23,7 @@ describe ('playlist class helper', function () {
     pl.getPlaylist()[0].url.should.equal("https://www.youtube.com/watch?v=MZuSaudKc68");
     pl.getPlaylist()[0].title.should.equal("title");
     pl.getPlaylist()[0].author.should.equal("me");
+    pl.getPlaylist()[0].index.should.equal(1);
     callback.calledOnce.should.be.true();
     callback.calledWith("title").should.be.true();    
     done();
@@ -42,8 +43,20 @@ describe ('playlist class helper', function () {
     let url = "https://www.youtube.com/watch?v=MZuSaudKc68";
     pl.add(url, "id", "me", callback);
     pl.getPlaylist().length.should.equal(1);
-    pl.remove(url);
+    pl.remove(1).should.equal(0);
     pl.getPlaylist().length.should.equal(0);
+    pl.add(url, "id", "me", callback);
+    pl.add(url, "id", "me", callback);
+    pl.add(url, "id", "me", callback);
+    pl.add(url, "id", "me", callback);
+    pl.remove(2).should.equal(0);
+    pl.getPlaylist().length.should.equal(3);
+    pl.remove(2).should.equal(1);
+    pl.getPlaylist().length.should.equal(3);
+    pl.add(url, "id", "me", callback);
+    pl.getPlaylist().length.should.equal(4);
+    pl.remove(5).should.equal(0);
+    pl.getPlaylist().length.should.equal(3);
     done();
   });
   it('should remove the played url and tell if there is a next song', function(done) {        
