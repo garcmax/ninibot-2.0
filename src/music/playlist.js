@@ -13,19 +13,22 @@ export default class Playlist {
           console.log(error);
           callback(1);
         } else {
-          let playlistObject = {"url" : url, "title" : title, "author": author};
+          let index = this.playlist.length > 0 ? this.playlist[0].index + 1 : 1; 
+          let playlistObject = {"url" : url, "title" : title, "author": author, "index" : index};
           this.playlist.unshift(playlistObject);
           callback(playlistObject.title);
         }
       }.bind(this));      
     }
 
-    remove(url) {
+    remove(index) {
       for (let i = 0; i < this.playlist.length; i++) {
-        if (this.playlist[i].url == url) {
+        if (this.playlist[i].index == index) {
           this.playlist.splice(i, 1);
+          return 0;
         }
       }
+      return 1;
     }
 
     hasNext() {
