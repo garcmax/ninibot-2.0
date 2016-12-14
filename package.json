@@ -1,6 +1,6 @@
 {
   "name": "ninibot-2.0",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A multi-purpose discord bot",
   "main": "ninibot.js",
   "scripts": {
